@@ -8,6 +8,9 @@ const { handleValidationErrors } = require("../../utils/validation")
 const { setTokenCookie, restoreUser } = require("../../utils/auth");
 const { User } = require('../../db/models');
 
+const router = express.Router();
+
+
 const validateLogin = [
   check('credential')
     .exists({ checkFalsy: true })
@@ -19,15 +22,6 @@ const validateLogin = [
   handleValidationErrors
 ];
 
-
-
-
-
-
-
-
-
-const router = express.Router();
 
 router.post("/", validateLogin, async (req, res, next) => {
 
@@ -53,7 +47,9 @@ router.post("/", validateLogin, async (req, res, next) => {
   const safeUser = {
     id: user.id,
     email: user.email,
-    username: user.username
+    username: user.username,
+    firstName: user.firstName,
+    lastNAme: user.lastName
   }
 
   await setTokenCookie(res, safeUser)
@@ -69,8 +65,12 @@ router.get("/", (req, res) => {
   if (user) {
     const safeUser = {
       id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
-      username: user.username
+      username: user.username,
+      firstName: user.firstName,
+      lastNAme: user.lastName
     };
 
     return res.json({
