@@ -2,13 +2,16 @@ const router = require('express').Router();
 const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
 const { User } = require("../../db/models");
 const sessionRouter = require('./session');
-const usersRouter = require("./users")
+const usersRouter = require("./users");
+const spotsRouter = require('./spots');
 
 router.use(restoreUser)
 
 router.use("/session", sessionRouter);
 
 router.use('/users', usersRouter);
+
+router.use('/spots', spotsRouter)
 
 // router.use('/spots', spotsRouter)
 
