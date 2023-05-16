@@ -12,7 +12,7 @@ options.tableName = "Reviews";
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    await queryInterface.addColumn(options.tableName, "spotId", {
+    await queryInterface.addColumn(options, "spotId", {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
@@ -21,7 +21,7 @@ module.exports = {
       onDelete: 'CASCADE'
     })
 
-    await queryInterface.addColumn(options.tableName, "userId", {
+    await queryInterface.addColumn(options, "userId", {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {

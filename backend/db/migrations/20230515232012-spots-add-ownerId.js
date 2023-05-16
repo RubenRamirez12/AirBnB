@@ -12,7 +12,7 @@ options.tableName = "Spots";
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    await queryInterface.addColumn(options.tableName, "ownerId", {
+    await queryInterface.addColumn(options, "ownerId", {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
@@ -24,7 +24,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
 
-    await queryInterface.removeColumn(options.tableName, "ownerId");
+    await queryInterface.removeColumn(options, "ownerId");
 
   }
 };

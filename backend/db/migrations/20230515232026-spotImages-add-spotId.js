@@ -8,12 +8,11 @@ if (process.env.NODE_ENV === 'production') {
 
 options.tableName = "SpotImages";
 
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    queryInterface.addColumn(options.tableName, "spotId", {
+    await queryInterface.addColumn(options, "spotId", {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
@@ -25,7 +24,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
 
-    await queryInterface.removeColumn(options.tableName, 'spotId')
+    await queryInterface.removeColumn(options, 'spotId')
 
   }
 };
