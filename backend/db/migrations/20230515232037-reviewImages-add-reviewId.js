@@ -12,7 +12,7 @@ options.tableName = "ReviewImages";
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    await queryInterface.addColumn(options.tableName, "reviewId", {
+    await queryInterface.addColumn(options, "reviewId", {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
@@ -24,7 +24,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
 
-    await queryInterface.removeColumn(options.tableName, 'reviewId')
+    await queryInterface.removeColumn(options, 'reviewId')
 
   }
 };
