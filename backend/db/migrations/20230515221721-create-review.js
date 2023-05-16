@@ -6,7 +6,9 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA
 }
 
+
 // options.tableName = "Reviews";
+
 
 
 /** @type {import('sequelize-cli').Migration} */
