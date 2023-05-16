@@ -12,7 +12,7 @@ options.tableName = "SpotImages";
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    return queryInterface.bulkInsert(options.tableName, [
+    return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
         url: "spotUrl1",
@@ -40,7 +40,7 @@ module.exports = {
 
     const Op = Sequelize.Op;
 
-    return queryInterface.bulkDelete(options.tableName, {
+    return queryInterface.bulkDelete(options, {
       [Sequelize.Op.or]: [
         {
           spotId: 1,

@@ -12,7 +12,7 @@ options.tableName = "Reviews";
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    return queryInterface.bulkInsert(options.tableName, [
+    return queryInterface.bulkInsert(options, [
       {
         spotId: 5,
         userId: 1,
@@ -38,7 +38,7 @@ module.exports = {
 
     const Op = Sequelize.Op;
 
-    return queryInterface.bulkDelete(options.tableName, {
+    return queryInterface.bulkDelete(options, {
       [Sequelize.Op.or]: [
         {
           spotId: 5,

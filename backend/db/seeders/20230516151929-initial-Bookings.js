@@ -11,7 +11,7 @@ options.tableName = "Bookings";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert(options.tableName, [
+    return queryInterface.bulkInsert(options, [
       {
         spotId: 3,
         userId: 5,
@@ -37,7 +37,7 @@ module.exports = {
 
     const Op = Sequelize.Op;
 
-    return queryInterface.bulkDelete(options.tableName, {
+    return queryInterface.bulkDelete(options, {
       [Sequelize.Op.or]: [
         { starDate: '2023-01-01', endDate: '2023-01-6' },
         { starDate: '2023-04-15', endDate: '2023-05-01' },
