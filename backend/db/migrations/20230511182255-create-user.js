@@ -54,7 +54,7 @@ module.exports = {
       }
     }, options);
 
-    await queryInterface.addIndex(options, ['username'], {
+    await queryInterface.addIndex(options.tableName, ['username'], {
       name: "uq_users_username"
     });
 
@@ -62,7 +62,7 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
 
-    await queryInterface.removeIndex(options, 'uq_users_username')
+    await queryInterface.removeIndex(options.tableName, 'uq_users_username')
 
     await queryInterface.dropTable('Users');
 
