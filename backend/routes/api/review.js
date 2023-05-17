@@ -70,7 +70,37 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
     }
 })
 
+router.put('/:reviewId', requireAuth, async (req, res) => {
+    const { review, stars } = req.body
+    const currentReview = await Review.findByPk(req.params.reviewId);
 
+    if (currentReview && currentReview.userId === req.user.id) {
+        if (review) {
+            currentReview.review = review;
+        }
+
+        if (stars) {
+            currentReview.stars = stars
+        }
+
+        try {
+            await currentReview.save();
+            res.json(currentReview)
+        } catch {
+            res.status(400).json({
+                message: "Bad Request",
+                errors: {
+                    review: "Review text is required",
+                    stars: "Stars must be an integer from 1 to 5"
+                }
+            })
+        }
+    } else {
+        res.status(404).json({
+            message: "Review couldn't be found"
+        })
+    }
+})
 
 
 
