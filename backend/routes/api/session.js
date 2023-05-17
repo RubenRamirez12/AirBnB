@@ -46,10 +46,10 @@ router.post("/", validateLogin, async (req, res, next) => {
 
   const safeUser = {
     id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
     email: user.email,
     username: user.username,
-    firstName: user.firstName,
-    lastNAme: user.lastName
   }
 
   await setTokenCookie(res, safeUser)
@@ -59,6 +59,7 @@ router.post("/", validateLogin, async (req, res, next) => {
   });
 });
 
+//   /api/sessions --- Requires Authentication
 router.get("/", (req, res) => {
   const { user } = req;
 
@@ -68,9 +69,7 @@ router.get("/", (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      username: user.username,
-      firstName: user.firstName,
-      lastNAme: user.lastName
+      username: user.username
     };
 
     return res.json({

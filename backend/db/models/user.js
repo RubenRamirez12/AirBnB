@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 
       User.hasMany(models.Spot, {
         foreignKey: "ownerId",
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
+        alias: 'Owner'
       });
 
       User.hasMany(models.Review, {
@@ -69,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
       attributes: {
         exclude: ["hashedPassword", "email","createdAt", "updatedAt"]
       }
-    }
+    },
   });
   return User;
 };
