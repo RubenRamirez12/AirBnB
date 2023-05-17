@@ -38,7 +38,21 @@ const reviewFormater = async (review) => {
         attributes: ["id", "url"]
     })
 
-    return {...currentReview, Spot: currentSpot, ReviewImages: reviewImages};
+    return { ...currentReview, Spot: currentSpot, ReviewImages: reviewImages };
+}
+
+const reviewFormaterNoSpot = async (review) => {
+    let currentReview = review.toJSON();
+
+    let reviewImages = await ReviewImage.findAll({
+        where: {
+            reviewId: currentReview.id
+        },
+        attributes: ["id", "url"]
+    })
+
+
+    return { ...currentReview, ReviewImages: reviewImages };
 }
 
 
@@ -57,4 +71,4 @@ const reviewFormater = async (review) => {
 
 
 
-module.exports = { reviewFormater }
+module.exports = { reviewFormater, reviewFormaterNoSpot }
