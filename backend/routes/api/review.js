@@ -69,7 +69,8 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
         })
     }
 })
-
+//edit a review
+//require authentication and authorization : TRUE
 router.put('/:reviewId', requireAuth, async (req, res) => {
     const { review, stars } = req.body
     const currentReview = await Review.findByPk(req.params.reviewId);
@@ -102,7 +103,23 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
     }
 })
 
+//DELETE A REVIEW
+//require authentication and authorization: TRUE
+router.delete('/:reviewId', requireAuth, async (req, res) => {
+    const currentReview = await Review.findByPk(req.params.reviewId);
 
+    if (currentReview && currentReview.userId === req.user.id) {
+        await currentReview.destroy();
+
+        res.json({
+            message: "Successfully deleted"
+        })
+    } else {
+        res.status(404).json({
+            message: "Review couldn't be found"
+        })
+    }
+})
 
 
 
