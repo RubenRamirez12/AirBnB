@@ -3,7 +3,7 @@ const router = express.Router();
 const spotFormater = require("../../utils/spot-utils")
 const { requireAuth } = require("../../utils/auth");
 const { Spot, SpotImage, Review, User } = require("../../db/models");
-
+const { reviewFormater, reviewFormaterNoSpot } = require('../../utils/review-utils')
 
 //Get All Spots
 //Authentication: FALSE
@@ -108,6 +108,39 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
   }
 
 })
+
+//get all reviews by a spot's id
+//require authentication: false
+
+router.get('/:spotId/reviews', async (req, res) => {
+  resBody = { Reviews: [] }
+
+  const reviews = await Review.findAll({
+    where: {
+      spotId: req.params.spotId
+    },
+    attributes: ["id", "userId", "spotId", "review", "stars", "createdAt", "updatedAt"],
+    include: {
+      model: User,
+      attributes: ["id", "firstName", "lastName"]
+    }
+  });
+
+  if (reviews.length > 0) {
+    for (let i = 0; i < reviews.length; i++) {
+      let currentReview = reviews[i];
+      resBody.Reviews.push(await reviewFormaterNoSpot(currentReview))
+    }
+  } else {
+    res.status(404).json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+
+  res.json(resBody)
+})
+
 
 //Get details of a Spot from an id
 //Require Authentication: false

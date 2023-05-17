@@ -35,26 +35,11 @@ router.get('/current', requireAuth, async (req, res) => {
 
 
 
+
+
+
+
+
+
+
 module.exports = router;
-
-
-/*
-Dump Code
-        const spotsImage = await SpotImage.findOne({
-            where: {
-                spotId: currentSpot.id
-            }
-        })
-
-        // currentReview.toJSON();
-        // currentSpot.toJSON();
-
-        // if (spotImage) {
-        //     currentSpot.previewImage = spotImage.url
-        // } else {
-        //     currentSpot.previewImage = "No preview Image"
-        // }
-
-
-
-*/
