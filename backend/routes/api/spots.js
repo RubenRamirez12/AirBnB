@@ -5,7 +5,8 @@ const { requireAuth } = require("../../utils/auth");
 const { Spot, SpotImage, Review, User } = require("../../db/models");
 
 
-//Get All Spots // Authentication: FALSE
+//Get All Spots
+//Authentication: FALSE
 router.get('/', async (req, res) => {
 
   let resBody = { Spots: [] };
