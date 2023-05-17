@@ -111,7 +111,6 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
 //get all reviews by a spot's id
 //require authentication: false
-
 router.get('/:spotId/reviews', async (req, res) => {
   resBody = { Reviews: [] }
 
@@ -141,6 +140,48 @@ router.get('/:spotId/reviews', async (req, res) => {
   res.json(resBody)
 })
 
+//Create a review for a spot based on the spot's Id
+//Require Authentication: true
+router.post('/:spotId/reviews', requireAuth, async (req, res) => {
+  const { review, stars } = req.body;
+  const currentSpot = await Spot.findByPk(req.params.spotId)
+  const oldReview = await Review.findOne({
+    where: {
+      spotId: req.params.spotId,
+      userId: req.user.id
+    }
+  })
+  if (currentSpot) {
+    if (!oldReview){
+      try {
+        let newReview = await Review.create({
+          spotId: req.params.spotId,
+          userId: req.user.id,
+          review: review,
+          stars: stars
+        });
+
+        res.status(201).json(newReview)
+      } catch {
+        res.status(400).json({
+          message: "Bad Request",
+          errors: {
+            review: "Review text is required",
+            stars: "Stars must be an integer from 1 to 5"
+          }
+        })
+      }
+    } else {
+      res.status(500).json({
+        message: "User already has a review for this spot"
+      })
+    }
+  } else {
+    res.status(404).json({
+      message: "Spot couldn't be found"
+    })
+  }
+})
 
 //Get details of a Spot from an id
 //Require Authentication: false
