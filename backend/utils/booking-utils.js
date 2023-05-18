@@ -1,4 +1,5 @@
-const { User, Spot, SpotImage, Review, ReviewImage } = require("../db/models");
+const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require("../db/models");
+const { Op } = require('sequelize');
 
 const bookingFormater = async (booking) => {
     let currentBooking = booking.toJSON()
@@ -28,6 +29,36 @@ const bookingFormater = async (booking) => {
     return { ...currentBooking, Spot: currentSpot }
 }
 
+const isValidDate = async (spotId, startDate, endDate) => {
+    let sDate = new Date(startDate)
+    let eDate = new Date(endDate)
+    let todayDate = new Date()
 
+    if (sDate > eDate || sDate < todayDate || eDate < todayDate) {
+        return false
+    };
+    const currentBookings = await Booking.findAll({
+        where: {
+            spotId: spotId,
+            [Op.or]: [
+                {
+                    startDate: {
+                        [Op.between]: [startDate, endDate]
+                    },
+                    endDate: {
+                        [Op.between]: [startDate, endDate]
+                    },
+                },
+            ],
+        }
+    })
 
-module.exports = { bookingFormater }
+    if (currentBookings.length < 1) {
+        return true
+    } else {
+        return false
+    }
+
+}
+
+module.exports = { bookingFormater, isValidDate }
