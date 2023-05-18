@@ -38,26 +38,26 @@ router.get('/current', requireAuth, async (req, res) => {
 //require authorization: TRUE
 router.post("/:reviewId/images", requireAuth, async (req, res) => {
     const { url } = req.body
-    const review = await Review.findByPk(req.params.reviewId)
+    const currentReview = await Review.findByPk(req.params.reviewId)
 
-    if (review && review.userId === req.user.id) {
+    if (currentReview && currentReview.userId === req.user.id) {
 
-        const userReviews = await Review.findAll({
+        const userImages = await ReviewImage.findAll({
             where: {
-                userId: req.user.id
+                reviewId: currentReview.id
             }
         });
 
-
-
-
-        if (userReviews.length < 10) {
+        if (userImages.length < 10) {
             const newReviewImage = await ReviewImage.create({
                 reviewId: parseInt(req.params.reviewId),
                 url: url
             });
 
-            res.json(newReviewImage);
+            const theNewImage = await ReviewImage.findByPk(newReviewImage.id, {
+                attributes: ["id", "url"]
+            });
+            res.json(theNewImage);
         } else {
             res.status(403).json({
                 message: "Maximum number of images for this resource was reached"
@@ -76,16 +76,17 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
     const currentReview = await Review.findByPk(req.params.reviewId);
 
     if (currentReview && currentReview.userId === req.user.id) {
-        if (review) {
-            currentReview.review = review;
-        }
-
-        if (stars) {
-            currentReview.stars = stars
-        }
-
         try {
-            await currentReview.save();
+            if (review) {
+                currentReview.review = review;
+                await currentReview.save()
+            }
+
+            if (stars) {
+                currentReview.stars = parseInt(stars)
+                await currentReview.save()
+            }
+
             res.json(currentReview)
         } catch {
             res.status(400).json({

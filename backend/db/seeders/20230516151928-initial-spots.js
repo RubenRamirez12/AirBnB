@@ -27,12 +27,12 @@ module.exports = {
       },
       {
         ownerId: 1,
-        address: "123 cooler street",
-        city: "Cooler City",
+        address: "Location at place",
+        city: "Location city",
         state: "California",
         country: "United States",
-        lat: 11.1112,
-        lng: 22.2221,
+        lat: -123.232,
+        lng: 44.2322,
         name: "Cooler than the Cool House",
         description: "Enjoy a nicer stay at this even better house",
         price: 200.20
@@ -47,7 +47,7 @@ module.exports = {
         lng: 44.4444,
         name: "Tropical House",
         description: "Enjoy the tropical relaxation of this house",
-        price: 300.30
+        price: 300.37
       },
       {
         ownerId: 3,
@@ -59,7 +59,7 @@ module.exports = {
         lng: 66.6666,
         name: "Forest House",
         description: "Experience nature in this incredible forest house",
-        price: 400.40
+        price: 400.47
       },
       {
         ownerId: 4,

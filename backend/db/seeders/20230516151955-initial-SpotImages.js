@@ -32,7 +32,17 @@ module.exports = {
         spotId: 4,
         url: "Spot4Url",
         preview: false
-      }
+      },
+      {
+        spotId: 1,
+        url: "spotUrl1again",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "spotUrl1again",
+        preview: false
+      },
     ])
   },
 

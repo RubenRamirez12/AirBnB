@@ -61,4 +61,15 @@ const isValidDate = async (spotId, startDate, endDate) => {
 
 }
 
-module.exports = { bookingFormater, isValidDate }
+const bookingFormaterOwner = async (booking) => {
+    let currentBooking = booking.toJSON()
+
+    const user = await User.findByPk(currentBooking.userId, {
+        attributes: ["id", "firstName", "lastName"]
+    })
+
+
+    return { ...currentBooking, User: user }
+}
+
+module.exports = { bookingFormater, isValidDate, bookingFormaterOwner }
