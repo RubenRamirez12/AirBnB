@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const spotFormater = require("../../utils/spot-utils")
 const { requireAuth } = require("../../utils/auth");
-const { Spot, SpotImage, Review, User } = require("../../db/models");
+const { Spot, SpotImage, Review, User, Booking } = require("../../db/models");
 const { reviewFormater, reviewFormaterNoSpot } = require('../../utils/review-utils')
+const { bookingFormater } = require('../../utils/booking-utils')
 
 //Get All Spots
 //Authentication: FALSE
@@ -108,6 +109,65 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
   }
 
 })
+
+//Get all bookings for a spot based on the spots id
+//require authentication true
+router.get("/:spotId/bookings", requireAuth, async (req, res) => {
+
+  const spot = await Spot.findByPk(req.params.spotId)
+
+  if (spot) {
+    if (spot.ownerId === req.user.id) {
+      //if current User owns the spot
+      resBody = { Bookings: [] }
+      const bookings = await Booking.findAll({
+        where: {
+          spotId: req.params.spotId
+        }
+      });
+
+      for (let i = 0; i < bookings.length; i++) {
+        let currentBooking = bookings[i]
+        resBody.Bookings.push(await bookingFormater(currentBooking))
+      }
+
+      res.json(resBody)
+
+    } else {
+      //Current User Does NOT own the spot
+      const bookings = await Booking.findAll({
+        where: {
+          spotId: req.params.spotId
+        },
+        attributes: ["spotId", "startDate", "endDate"]
+      });
+
+      res.json({Bookings: bookings})
+    }
+  } else {
+    res.status(404).json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+
+
+
+
+
+  res.json({Bookings})
+})
+
+
+
+
+
+
+
+
+
+
+
 
 //get all reviews by a spot's id
 //require authentication: false

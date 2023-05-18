@@ -30,5 +30,4 @@ const bookingFormater = async (booking) => {
 
 
 
-
 module.exports = { bookingFormater }
