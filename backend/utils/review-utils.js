@@ -52,7 +52,7 @@ const reviewFormaterNoSpot = async (review) => {
     })
 
 
-    return { ...currentReview, ReviewImages: reviewImages };
+    return { ...currentReview , ReviewImages: reviewImages };
 }
 
 

@@ -182,22 +182,35 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
       if (currentBookings.length === 0) {
         //timeframe for booking is not taken
         if (startDate && endDate) {
-          try {
-            //tries to create new booking
-            const newBooking = await Booking.create({
-              spotId: req.params.spotId,
-              userId: req.user.id,
-              startDate: startDate,
-              endDate: endDate
-            })
+          let convertStart = new Date(startDate)
+          let currentDate = new Date
+          if (convertStart > currentDate) {
+            try {
+              //tries to create new booking
+              const newBooking = await Booking.create({
+                spotId: req.params.spotId,
+                userId: req.user.id,
+                startDate: startDate,
+                endDate: endDate
+              })
+              await newBooking.save();
 
-            res.json(newBooking)
-          } catch {
-            //throws error if booking is invalid
+              res.json(newBooking)
+            } catch {
+              //throws error if booking is invalid
+              res.status(400).json({
+                message: "Bad Request",
+                errors: {
+                  endDate: "endDate cannot be on or before StartDate"
+                }
+              })
+            }
+          } else {
+            //startDate is before currentDate
             res.status(400).json({
               message: "Bad Request",
-              erros: {
-                endDate: "endDate cannot be on or before StartDate"
+              errors: {
+                startDate: "You cannot choose a date that has already past as a start date"
               }
             })
           }
@@ -206,6 +219,10 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
             message: "startDate and EndDate cannot be empty"
           })
         }
+
+
+
+
       } else {
         //if bookings exist, timeframe is taken
         res.status(403).json({
@@ -216,12 +233,21 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
           }
         })
       }
+
+
+
+
     } else {
       //if user is owner of spot, not allowed to book
       res.status(403).json({
         messae: "You cannot book a stay in your own spot!"
       })
     }
+
+
+
+
+
   } else {
     //if spot doesnt exist
     res.status(404).json({
