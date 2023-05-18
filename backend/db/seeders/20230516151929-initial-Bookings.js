@@ -16,18 +16,18 @@ module.exports = {
         spotId: 3,
         userId: 5,
         startDate: '2023-01-01',
-        endDate: '2023-01-6',
+        endDate: '2023-01-06',
       },
       {
         spotId: 1,
         userId: 4,
-        startDate: '2023-04-15',
-        endDate: '2023-05-01',
+        startDate: '2023-05-01',
+        endDate: '2023-05-11',
       },
       {
         spotId: 5,
         userId: 1,
-        startDate: "2023-06-15",
+        startDate: "2023-06-1",
         endDate: "2023-07-11",
       }
     ])
@@ -39,9 +39,24 @@ module.exports = {
 
     return queryInterface.bulkDelete(options, {
       [Sequelize.Op.or]: [
-        { starDate: '2023-01-01', endDate: '2023-01-6' },
-        { starDate: '2023-04-15', endDate: '2023-05-01' },
-        { starDate: '2023-06-15', endDate: '2023-07-11' }
+        {
+          spotId: 3,
+          userId: 5,
+          startDate: '2023-01-01',
+          endDate: '2023-01-06',
+        },
+        {
+          spotId: 1,
+          userId: 4,
+          startDate: '2023-05-01',
+          endDate: '2023-05-11',
+        },
+        {
+          spotId: 5,
+          userId: 1,
+          startDate: "2023-06-1",
+          endDate: "2023-07-11",
+        }
       ]
     });
   }

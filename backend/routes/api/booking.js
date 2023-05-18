@@ -25,7 +25,32 @@ router.get('/current', requireAuth, async (req, res) => {
     res.json(resBody)
 })
 
+//Delete a Booking
+//require authentication and authorization: TRUE
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+    const currentBooking = await Booking.findByPk(req.params.bookingId);
 
+    if (currentBooking && currentBooking.userId === req.user.id) {
+        let todaysDate = new Date()
+        let bookedStartDate = new Date(currentBooking.startDate)
+
+
+        if (bookedStartDate < todaysDate) {
+            res.status(403).json({
+                message: "Bookings that have been started can't be deleted"
+            })
+        } else {
+            await currentBooking.destroy()
+            res.json({
+                message: "Successfully deleted"
+            })
+        }
+    } else {
+        res.status(404).json({
+            message: "Booking couldn't be found"
+        })
+    }
+})
 
 
 
