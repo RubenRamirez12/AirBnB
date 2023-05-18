@@ -4,7 +4,7 @@ const spotFormater = require("../../utils/spot-utils")
 const { requireAuth } = require("../../utils/auth");
 const { Spot, SpotImage, Review, User, Booking } = require("../../db/models");
 const { reviewFormater, reviewFormaterNoSpot } = require('../../utils/review-utils')
-const { bookingFormater } = require('../../utils/booking-utils')
+const { bookingFormater, bookingFormaterOwner } = require('../../utils/booking-utils')
 const { Op } = require('sequelize');
 
 //Get All Spots
@@ -222,7 +222,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res) => {
 
       for (let i = 0; i < bookings.length; i++) {
         let currentBooking = bookings[i]
-        resBody.Bookings.push(await bookingFormater(currentBooking))
+        resBody.Bookings.push(await bookingFormaterOwner(currentBooking))
       }
 
       res.json(resBody)
