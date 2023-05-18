@@ -53,8 +53,7 @@ const isValidDate = async (spotId, startDate, endDate) => {
         }
     })
 
-    console.log("CURRENT BOOKINGS", currentBookings.length)
-    if (currentBookings.length <= 1) {
+    if (currentBookings.length < 1) {
         return true
     } else {
         return false

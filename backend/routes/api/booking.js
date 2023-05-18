@@ -89,15 +89,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
   const currentBooking = await Booking.findByPk(req.params.bookingId)
   const { startDate, endDate } = req.body;
 
-
-  //no edit body
-  // if (!startDate && !endDate) {
-
-  // }
-
-
-
-
   let currentStart = "";
   let currentStartDate = ""
   if (startDate) {
@@ -119,14 +110,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
   }
 
 
-
-
-
-
-
-
-
-
   if (currentBooking && currentBooking.userId === req.user.id) {
     if (currentStartDate < currentEndDate) {
       let valid = await isValidDate(currentBooking.spotId, currentStart, currentEnd)
@@ -136,14 +119,13 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         await currentBooking.save()
         res.json(currentBooking)
       } else {
-        res.json("please input valid date")
+        res.json("invalid date")
       }
     } else {
-      res.json("START IS LARGER THAN END")
+      res.json("start date is past end date")
     }
   } else {
-    //user doesnt own booking, or booking doesnt exist
-    res.json("Booking NOT FOUND")
+    res.json("Booking not found")
   }
 })
 
