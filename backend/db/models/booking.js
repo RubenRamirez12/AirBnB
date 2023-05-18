@@ -20,12 +20,21 @@ module.exports = (sequelize, DataTypes) => {
   Booking.init({
     startDate: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isDate: true,
+        validStartDate(value) {
+          if (value > this.endDate) {
+            throw new Error ("Please pick a date BEFORE the end date")
+          }
+        }
+      }
     },
     endDate: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
+        isDate: true,
         validEndDate(value) {
           if (value < this.startDate) {
             throw new Error ("Please pick a date AFTER the start date")
