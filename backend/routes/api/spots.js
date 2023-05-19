@@ -183,8 +183,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
   const { url, preview } = req.body;
   const theSpot = await Spot.findByPk(req.params.spotId);
 
-  console.log(theSpot.ownerId, req.user.id)
-  if (theSpot.ownerId === req.user.id) {
+  if (theSpot && theSpot.ownerId === req.user.id) {
     const newSpotImage = await SpotImage.create({
       spotId: req.params.spotId,
       url: url,
@@ -469,7 +468,7 @@ router.get('/:spotId', async (req, res) => {
     if (rating > 0) {
       pojoSpot.avgStarRating = rating / totalReviews
     } else {
-      pojoSpot.avgStarRating = 0
+      pojoSpot.avgStarRating = "No reviews yet"
     }
 
     res.json(pojoSpot)
@@ -487,7 +486,7 @@ router.put('/:spotId', requireAuth, async (req, res) => {
   const { address, city, state, country, lat, lng, name, description, price } = req.body;
   const spot = await Spot.findByPk(req.params.spotId)
 
-  if (spot.ownerId === req.user.id) {
+  if (spot && spot.ownerId === req.user.id) {
 
     if (address) {
       spot.address = address;
