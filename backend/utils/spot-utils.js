@@ -21,7 +21,7 @@ const spotFormater = async (spot) => {
     if (ratings > 0) {
         avgRating = ratings / reviews.length
     } else {
-        avgRating = 0
+        avgRating = "No reviews yet"
     }
 
     currentSpot.avgRating = avgRating
