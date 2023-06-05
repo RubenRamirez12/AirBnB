@@ -1,0 +1,69 @@
+.wholeSpot {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.imageLink {
+    display: flex;
+    justify-content: center;
+
+    height: 80%;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.spotImage {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+#topInfo {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+
+.spotInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+}
+
+#topLeftInfo {
+    text-decoration: none;
+    color: black;
+}
+
+#topRightInfo {
+    text-decoration: none;
+    color: black;
+}
+
+#price {
+    text-decoration: none;
+    color: black;
+}
+
+#bottomInfo {
+    text-decoration: none;
+    color: black;
+}
+
+.ImageDiv:hover {
+    cursor: pointer;
+}
+
+#topLeftInfo:hover {
+    cursor: pointer;
+}
+
+#topRightInfo:hover {
+    cursor: pointer;
+}
+
+#bottomInfo:hover {
+    cursor: pointer;
+}

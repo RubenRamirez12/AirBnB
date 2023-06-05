@@ -25,9 +25,10 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div className="Login">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="LoginForm">
+
         <label>
           Username or Email
           <input
@@ -36,7 +37,9 @@ function LoginFormModal() {
             onChange={(e) => setCredential(e.target.value)}
             required
           />
+          {errors.credential && <p className="login-errors">{errors.credential}</p>}
         </label>
+
         <label>
           Password
           <input
@@ -46,12 +49,35 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-        <button type="submit">Log In</button>
+
+        <button id="LoginModalButton" type="submit">Log In</button>
+
       </form>
-    </>
+
+
+
+      <div className="DemoDiv">
+
+
+        <button className="demoUserButton" onClick={() => {
+          dispatch(sessionActions.login({ credential: "Demo1", password:"Demo123" }))
+          .then(closeModal)
+        }}>Demo User 1</button>
+
+
+        <button className="demoUserButton" onClick={() => {
+          dispatch(sessionActions.login({ credential: "Demo2", password:"Demo123" }))
+          .then(closeModal)
+        }}>Demo User 2</button>
+
+
+      </div>
+
+
+    </div>
+
+
+
   );
 }
 
