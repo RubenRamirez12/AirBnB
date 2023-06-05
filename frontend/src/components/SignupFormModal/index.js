@@ -101,6 +101,7 @@ function SignupFormModal() {
         </label>
 
         <label>
+          Confirm Password
           <input
             type="password"
             value={confirmPassword}
