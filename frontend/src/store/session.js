@@ -42,9 +42,14 @@ export const signup = (user) => async (dispatch) => {
             password,
         }),
     });
+
     const data = await response.json();
+    console.log(data.errors)
+    if (data.errors) {
+        return data.errors;
+    }
+
     dispatch(setUser(data.user));
-    return response;
 };
 
 export const logout = () => async (dispatch) => {
