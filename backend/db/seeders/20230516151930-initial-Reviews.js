@@ -16,19 +16,19 @@ module.exports = {
       {
         spotId: 1,
         userId: 1,
-        review: "What a unique place! Close to airport and Ponta Delgada if you have a car, which would be recommended. Cute small town. Gated property. Easy checkin with good instructions and local recommendations.",
+        review: "What a unique place! Close to airport and Ponta Delgada if you have a car, which would be recommended. Cute small town.",
         stars: 5
       },
       {
         spotId: 1,
         userId: 2,
-        review: "The views are unbeatable, comfortable bed, and super special touches like the morning breakfast delivery. Unfortunately had to give just 4 stars due to 100+ ants on the main level. We are very understanding of being in a rural area and bugs being inevitable, however, this amount of ants was concerning",
+        review: "The views are unbeatable, comfortable bed, and super special touches like the morning breakfast delivery. ",
         stars: 4
       },
       {
         spotId: 1,
         userId: 3,
-        review: "Absolutely magical place! It looks like on all the photos: staying in a windmill with a 360 degrees view over the ocean in absolute serenity. We loved this place and re-scheduled several activities we had booked to be able to enjoy our stay at the windmill as much as possible.",
+        review: "Absolutely magical place! It looks like on all the photos: staying in a windmill with a 360 degrees view over the ocean in absolute serenity. .",
         stars: 5
       },
       {
@@ -55,19 +55,19 @@ module.exports = {
         {
           spotId: 1,
           userId: 1,
-          review: "What a unique place! Close to airport and Ponta Delgada if you have a car, which would be recommended. Cute small town. Gated property. Easy checkin with good instructions and local recommendations.",
+          review: "What a unique place! Close to airport and Ponta Delgada if you have a car, which would be recommended. Cute small town.",
           stars: 5
         },
         {
           spotId: 1,
           userId: 2,
-          review: "The views are unbeatable, comfortable bed, and super special touches like the morning breakfast delivery. Unfortunately had to give just 4 stars due to 100+ ants on the main level. We are very understanding of being in a rural area and bugs being inevitable, however, this amount of ants was concerning",
+          review: "The views are unbeatable, comfortable bed, and super special touches like the morning breakfast delivery. ",
           stars: 4
         },
         {
           spotId: 1,
           userId: 3,
-          review: "Absolutely magical place! It looks like on all the photos: staying in a windmill with a 360 degrees view over the ocean in absolute serenity. We loved this place and re-scheduled several activities we had booked to be able to enjoy our stay at the windmill as much as possible.",
+          review: "Absolutely magical place! It looks like on all the photos: staying in a windmill with a 360 degrees view over the ocean in absolute serenity. .",
           stars: 5
         },
         {
