@@ -5,6 +5,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import { Route } from "react-router-dom";
 import Catalog from '../src/components/Catalog'
+import SpotDetails from "./components/SpotDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,11 +17,18 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+
       {isLoaded &&
         <Switch>
-          <Route exact to="/">
+
+          <Route exact path="/">
             <Catalog />
           </Route>
+
+          <Route path="/spots/:spotId">
+            <SpotDetails />
+          </Route>
+
         </Switch>
       }
     </>

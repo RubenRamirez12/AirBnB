@@ -1,0 +1,143 @@
+.spotDetails {
+    margin: 0px 50px
+}
+
+.imageDetails {
+    display: flex;
+    height: 550px;
+    gap: 5px;
+    overflow: hidden;
+}
+
+.mainImageDetails {
+    width: 50%;
+}
+
+.sideImageDetails {
+    display: grid;
+    width: 50%;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, 50%);
+    grid-template-areas:
+    "image2 image3"
+    "image4 image5";
+    gap: 5px;
+}
+
+#image2 {
+    grid-area: "image2";
+}
+
+#image3 {
+    grid-area: "image3";
+}
+
+#image4 {
+    grid-area: "image4";
+}
+
+#image5 {
+    grid-area: "image5";
+}
+
+.sideImages {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.descriptionDetails {
+    margin-top: 20px;
+    border-bottom: 3px solid black;
+    display: flex;
+    justify-content: space-between;
+    height: 330px
+}
+
+.actualDescription {
+    width: 60%;
+}
+
+.reserveDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 3px solid black;
+    border-radius: 15px;
+
+    width: 25%;
+    height: fit-content;
+    padding: 30px;
+}
+
+.topReserve {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.rating-review {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+#NIGHT {
+    font-size: 20px;
+}
+
+#num-reviews {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#reserveButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    color: white;
+    background-color: rgb(250, 69, 69);
+    border: 3px solid black;
+    box-shadow: 2px 2px 2px black;
+}
+
+#reserveButton:hover {
+    cursor: pointer;
+}
+
+.fa-star {
+    font-size: 20px;
+}
+
+
+.reviewList {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 50px;
+}
+
+#reviewName {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#reviewDate {
+    font-size: 20px;
+    color: gray;
+}
+
+#reviewParagraph {
+    font-weight: bold;
+}
+
+.reviewListItem {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0px;
+    gap:15px;
+}
