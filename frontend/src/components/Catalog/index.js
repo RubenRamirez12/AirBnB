@@ -15,9 +15,8 @@ export default function Catalog() {
     return (
         <div className="catalogDiv">
             {spots && spots.map(spot => {
-                console.log(spot)
                 return (
-                    <div className="spotCard">
+                    <div key={spot.id} className="spotCard">
                         <SpotCard spot={spot} />
                     </div>
                 )

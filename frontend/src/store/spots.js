@@ -1,6 +1,7 @@
 //OPERATIONS DEFINED
 const CREATE_SPOT = 'spots/CREATEspot';
-const READ_SPOTS = 'spots/READspots';
+const READ_SPOTS = 'spots/READspots'; //Plural
+const READ_SPOT = 'spots/READspot'; //Singular
 const UPDATE_SPOT = 'spots/UPDATEspot';
 const DELETE_SPOT = 'spots/DELETEspot';
 
@@ -12,8 +13,12 @@ const readSpots = payload => {
     }
 }
 
-
-
+const readSpot = payload => {
+    return {
+        type: READ_SPOT,
+        body: payload
+    }
+}
 
 
 //Thunks
@@ -29,12 +34,31 @@ export const fetchAllSpots = () => async (dispatch) => {
     dispatch(readSpots(allSpots))
 }
 
-const spotsReducer = (state = {allSpots: {},singleSpot: {}}, action) => {
+export const fetchOneSpot = (spotId) => async dispatch => {
+    const req = await fetch (`/api/spots/${spotId}`)
+
+    if (req.ok) {
+        const data = await req.json();
+        let normalized = {[data.id]: data}
+        dispatch(readSpot(normalized))
+    } else {
+        const errors = await req.json();
+        return errors.errors
+    }
+}
+
+const initialState = {allSpots: {},singleSpot: {}}
+
+const spotsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
         case READ_SPOTS : {
             return { ...state, allSpots: {...action.body} }
+        }
+
+        case READ_SPOT: {
+            return { ...state, singleSpot: {...action.body}}
         }
 
         default: {
