@@ -31,12 +31,13 @@ export default function SpotDetails() {
     }, [dispatch, spot, spotId, reviews])
 
 
-    if (!spot || !spotImages) {
+    if (!spot || !spotImages || !reviews) {
         return <div>
             LOADING!!!
         </div>
     }
 
+    console.log("HERE IT IS!", reviews)
 
     return (
         <div className="spotDetails">
@@ -72,17 +73,17 @@ export default function SpotDetails() {
 
                 <div className="reserveDiv">
                     <div className="topReserve">
-                        <h1>${spot.price.toFixed(2)}<span id="NIGHT"> night</span></h1>
+                        <h1>${typeof spot.price === 'number' && spot.price.toFixed(2)}<span id="NIGHT"> night</span></h1>
                         <div className="rating-review">
                             <i className="fas fa-star">
-                                {spot.avgStarRating === "No reviews yet" ? "New" : spot.avgStarRating.toFixed(1)}
+                                {spot.avgStarRating === "No reviews yet" ? "New" : typeof spot.avgStarRating === 'number' && spot.avgStarRating.toFixed(1)}
                             </i>
                             ·
                             <div id="num-reviews">{spot.numReviews} reviews</div>
                         </div>
                     </div>
 
-                    <button id="reserveButton" onClick={(e) => alert("Feature Coming Soon!")}
+                    <button id="reserveButton" onClick={(e) => {}}
                     >
                         Reserve
                     </button>
@@ -92,10 +93,10 @@ export default function SpotDetails() {
 
             <div className="reviewDetails">
                 <h1>
-                    <i className="fas fa-star">{spot.avgStarRating === "No reviews yet" ? "New" : spot.avgStarRating.toFixed(1)}   ·   {spot.numReviews} reviews</i>
+                    <i className="fas fa-star">{spot.avgStarRating === "No reviews yet" ? "New" : typeof spot.avgStarRating === 'number' && spot.avgStarRating.toFixed(1)}   ·   {spot.numReviews} reviews</i>
                 </h1>
                 <ul className="reviewList">
-                    {reviews && reviews.map(review => {
+                    {reviews.map(review => {
                         console.log(review)
 
                         let reviewDate = new Date(review.createdAt).toLocaleString('en-US', {month: 'long', year: "numeric"})
