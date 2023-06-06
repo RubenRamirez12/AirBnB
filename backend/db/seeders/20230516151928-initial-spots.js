@@ -22,7 +22,7 @@ module.exports = {
         lat: 11.1111,
         lng: 22.2222,
         name: "Cool House",
-        description: "Built in the 19th century, with a 360 degrees view over the sea and surroundings on the top floor.It features a Bedroom with a king size bed, a very well- decorated living room with kitchenette, and a WC.Free WiFi, air conditioning, Led TV and DVD player.Private parking inside the premises, providing extra security.Perfect for an unforgettable honeymoon experience.The spaceIt has a 4000 m garden with sub - tropical fruit trees, garden trees, and flowers.In addition to the Mill ideal for 2 people, it has two more accommodation units: the Mó de Cimas House ideal up to 3 people and the Moleiros House that hold up tp 4 people.Guest accessGuests have access to all property spaces.License numberExempt",
+        description: "Built in the 19th century, VERY WELL DESIGNED, VERY FUN TO HANGOUT AT, FILLER TEXT FILLER TEXT FILLER TEXT, WOW , so cool and so greate :)",
         price: 100.10
       },
       {
