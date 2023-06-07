@@ -101,6 +101,7 @@ export default function SpotDetails() {
                         console.log("SPOT TO SEE LIVE", spot);
                         console.log("AVG RATING", spot.avgStarRating);
                         console.log("PRICE", spot.price)
+                        console.log("RISK", spot.avgStarRating.toFixed(2))
                         let reviewDate = new Date(review.createdAt).toLocaleString('en-US', {month: 'long', year: "numeric"})
                         return (
                             <li key={review.id} className="reviewListItem">
