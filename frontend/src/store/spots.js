@@ -31,13 +31,13 @@ export const fetchAllSpots = () => async (dispatch) => {
     for (let spot of data.Spots) {
 
         let spotPrice = spot.price
-        if (spotPrice && !isNaN(spotPrice)) {
+        if (spotPrice && typeof spotPrice === 'number' && typeof spotPrice !== 'string') {
             spotPrice = spotPrice.toFixed(2)
         }
 
 
         let spotAvgRating = spot.avgRating
-        if (spotAvgRating && spotAvgRating !== "No reviews yet" && !isNaN(spotAvgRating)) {
+        if (spotAvgRating && spotAvgRating !== "No reviews yet" && typeof spotAvgRating === 'number' && typeof spotAvgRating !== 'string') {
             spotAvgRating = spot.avgRating.toFixed(1)
         }
 
@@ -56,13 +56,13 @@ export const fetchOneSpot = (spotId) => async dispatch => {
 
 
         let dataPrice = data.price
-        if (dataPrice && !isNaN(dataPrice)) {
+        if (dataPrice && typeof dataPrice === 'number' && typeof dataPrice !== 'string') {
             dataPrice = dataPrice.toFixed(2)
         }
 
 
         let dataAvgStarRating = data.avgStarRating
-        if (dataAvgStarRating && dataAvgStarRating !== "No reviews yet" && !isNaN(dataAvgStarRating)) {
+        if (dataAvgStarRating && dataAvgStarRating !== "No reviews yet" && typeof dataAvgStarRating === 'number' && typeof dataAvgStarRating !== 'string') {
             dataAvgStarRating = data.avgStarRating.toFixed(1)
         }
 
