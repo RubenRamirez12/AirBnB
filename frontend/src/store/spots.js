@@ -105,17 +105,20 @@ export const spotCreator = (payload) => async (dispatch) => {
     if (res.ok) {
         const data = await res.json()
 
-        // let currentPhotos = photos.filter(photo => photo)
+        let currentPhotos = photos.filter(photo => photo)
 
-        photos.filter(photo => photo).forEach(photo => {
+        for (let i = 0; i < currentPhotos.length; i++) {
+            let thePhoto = currentPhotos[i]
+
             const res = csrfFetch(`/api/spots/${data.id}/images`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    url: photo
+                    url: thePhoto,
+                    preview: i === 0 ? true : false
                 })
             })
-        })
+        }
 
         dispatch(fetchOneSpot(data.id))
         return data
