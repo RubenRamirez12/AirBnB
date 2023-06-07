@@ -1,0 +1,96 @@
+.spotCreate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.spotCreateForm {
+    width: 25%;
+}
+
+#SC-Row3 {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#R3-C1 {
+    width: 63%
+}
+
+#R3-C2 {
+    width: 35%
+}
+
+#SC-Description {
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#description-area {
+    width: 100%;
+    resize: none;
+    height: 120px;
+    border: 3px solid black
+}
+
+#SC-Title {
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#inside-SC-Price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#SC-Price {
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#inside-SC-Images {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#SC-Images {
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#SC-button-Div {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 25px;
+}
+
+#SC-submit-button {
+    background-color: rgb(253, 77, 77);
+    color: white;
+    font-size: 15px;
+    box-shadow: 3px 3px 3px black;
+    padding: 5px;
+    width: 100px
+}
+
+.section-heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px
+}
+
+.spot-creation-errors {
+    color: red;
+    padding: 0px;
+    margin: 0px;
+}

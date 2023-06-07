@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import { Route } from "react-router-dom";
 import Catalog from '../src/components/Catalog'
 import SpotDetails from "./components/SpotDetails";
+import CreateSpotForm from "./components/CreateSpotForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,10 @@ function App() {
 
           <Route exact path="/">
             <Catalog />
+          </Route>
+
+          <Route path='/spots/new'>
+            <CreateSpotForm />
           </Route>
 
           <Route path="/spots/:spotId">

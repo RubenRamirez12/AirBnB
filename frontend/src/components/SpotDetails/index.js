@@ -83,6 +83,7 @@ export default function SpotDetails() {
                     <button id="reserveButton" onClick={(e) => alert("Feature Coming Soon...")}>
                         Reserve
                     </button>
+
                 </div>
 
             </div>
