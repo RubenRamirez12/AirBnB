@@ -21,14 +21,14 @@ export default function SpotCard({ spot }) {
 
                     <Link to={`/spots/${spot.id}`} id="topRightInfo">
                         <i className="fas fa-star">
-                            {spot.avgRating === "No reviews yet" ? "New" : spot.avgRating.toFixed(1)}
+                            {spot.avgRating === "No reviews yet" ? "New" : spot.avgRating}
                         </i>
                     </Link>
 
                 </div>
 
                 <Link to={`/spots/${spot.id}`} id="bottomInfo">
-                    <div id='price'>${spot.price.toFixed(2)}</div> night
+                    <div id='price'>${spot.price}</div> night
                 </Link>
 
             </div>
