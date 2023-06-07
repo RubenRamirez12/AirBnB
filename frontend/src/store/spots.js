@@ -27,19 +27,47 @@ export const fetchAllSpots = () => async (dispatch) => {
     const data = await req.json();
     let allSpots = {};
 
+    //normalizing spots, and fixing decimal to make price and rating decimal wanted
     for (let spot of data.Spots) {
-        allSpots[spot.id] = spot
+
+        let spotPrice = spot.price
+        if (spotPrice) {
+            spotPrice = spotPrice.toFixed(2)
+        }
+
+
+        let spotAvgRating = spot.avgRating
+        if (spotAvgRating && spotAvgRating !== "No reviews yet") {
+            spotAvgRating = spot.avgRating.toFixed(1)
+        }
+
+        allSpots[spot.id] = { ...spot, price: spotPrice, avgRating: spotAvgRating }
     }
 
     dispatch(readSpots(allSpots))
 }
 
 export const fetchOneSpot = (spotId) => async dispatch => {
-    const req = await fetch (`/api/spots/${spotId}`)
+    const req = await fetch(`/api/spots/${spotId}`)
 
     if (req.ok) {
         const data = await req.json();
-        let normalized = {[data.id]: data}
+        console.log(data)
+
+
+        let dataPrice = data.price
+        if (dataPrice) {
+            dataPrice = dataPrice.toFixed(2)
+        }
+
+
+        let dataAvgStarRating = data.avgStarRating
+        if (dataAvgStarRating && dataAvgStarRating !== "No reviews yet") {
+            dataAvgStarRating = data.avgStarRating.toFixed(1)
+        }
+
+
+        let normalized = { [data.id]: { ...data, price: dataPrice, avgStarRating: dataAvgStarRating} }
         dispatch(readSpot(normalized))
     } else {
         const errors = await req.json();
@@ -47,18 +75,18 @@ export const fetchOneSpot = (spotId) => async dispatch => {
     }
 }
 
-const initialState = {allSpots: {},singleSpot: {}}
+const initialState = { allSpots: {}, singleSpot: {} }
 
 const spotsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case READ_SPOTS : {
-            return { ...state, allSpots: {...action.body} }
+        case READ_SPOTS: {
+            return { ...state, allSpots: { ...action.body } }
         }
 
         case READ_SPOT: {
-            return { ...state, singleSpot: {...action.body}}
+            return { ...state, singleSpot: { ...action.body } }
         }
 
         default: {

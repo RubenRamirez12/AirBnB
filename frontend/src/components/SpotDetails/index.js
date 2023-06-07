@@ -70,18 +70,17 @@ export default function SpotDetails() {
 
                 <div className="reserveDiv">
                     <div className="topReserve">
-                        <h1>${spot.price && spot.price.toFixed(2)}<span id="NIGHT"> night</span></h1>
+                        <h1>${spot.price}<span id="NIGHT"> night</span></h1>
                         <div className="rating-review">
                             <i className="fas fa-star">
-                                {spot.avgStarRating && spot.avgStarRating === "No reviews yet" ? "New" : spot.avgStarRating.toFixed(1)}
+                                {spot.avgStarRating === "No reviews yet" ? "New" : spot.avgStarRating}
                             </i>
                             ·
                             <div id="num-reviews">{spot.numReviews} reviews</div>
                         </div>
                     </div>
 
-                    <button id="reserveButton" onClick={(e) => { }}
-                    >
+                    <button id="reserveButton" onClick={(e) => { }}>
                         Reserve
                     </button>
                 </div>
@@ -90,7 +89,7 @@ export default function SpotDetails() {
 
             <div className="reviewDetails">
                 <h1>
-                    <i className="fas fa-star">{spot.avgStarRating === 'No reviews yet' ? "New" : spot.avgStarRating.toFixed(1)} ·   {spot.numReviews} reviews</i>
+                    <i className="fas fa-star">{spot.avgStarRating === 'No reviews yet' ? "New" : spot.avgStarRating} · {spot.numReviews} reviews</i>
                 </h1>
                 <ul className="reviewList">
                     {reviews && reviews.map(review => {
