@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 //OPERATIONS DEFINED
 const CREATE_SPOT = 'spots/CREATEspot';
 const READ_SPOTS = 'spots/READspots'; //Plural
@@ -6,6 +8,7 @@ const UPDATE_SPOT = 'spots/UPDATEspot';
 const DELETE_SPOT = 'spots/DELETEspot';
 
 //Action Functions
+//plural - catalog
 const readSpots = payload => {
     return {
         type: READ_SPOTS,
@@ -13,6 +16,7 @@ const readSpots = payload => {
     }
 }
 
+//singular - spotDetails
 const readSpot = payload => {
     return {
         type: READ_SPOT,
@@ -20,6 +24,12 @@ const readSpot = payload => {
     }
 }
 
+const createSpot = payload => {
+    return {
+        type: CREATE_SPOT,
+        body: payload
+    }
+}
 
 //Thunks
 export const fetchAllSpots = () => async (dispatch) => {
@@ -66,12 +76,55 @@ export const fetchOneSpot = (spotId) => async dispatch => {
         }
 
 
-        let normalized = { [data.id]: { ...data, price: dataPrice, avgStarRating: dataAvgStarRating} }
+        let normalized = { [data.id]: { ...data, price: dataPrice, avgStarRating: dataAvgStarRating } }
         dispatch(readSpot(normalized))
     } else {
         const errors = await req.json();
         return errors.errors
     }
+}
+
+export const spotCreator = (payload) => async (dispatch) => {
+    const { address, city, state, country, lat, lng, name, description, price, photos } = payload
+    const res = await csrfFetch(`/api/spots`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        })
+    })
+
+    if (res.ok) {
+        const data = await res.json()
+
+        // let currentPhotos = photos.filter(photo => photo)
+
+        photos.filter(photo => photo).forEach(photo => {
+            const res = csrfFetch(`/api/spots/${data.id}/images`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    url: photo
+                })
+            })
+        })
+
+        dispatch(fetchOneSpot(data.id))
+        return data
+    } else {
+        const errors = await res.json();
+
+        return errors.errors
+    }
+
 }
 
 const initialState = { allSpots: {}, singleSpot: {} }
@@ -80,12 +133,13 @@ const spotsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
+
         case READ_SPOTS: {
             return { ...state, allSpots: { ...action.body } }
         }
 
         case READ_SPOT: {
-            return { ...state, singleSpot: { ...action.body } }
+            return { ...state, singleSpot: { ...state.singleSpot, ...action.body } }
         }
 
         default: {

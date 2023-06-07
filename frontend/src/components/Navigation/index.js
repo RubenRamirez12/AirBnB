@@ -18,7 +18,7 @@ function Navigation({ isLoaded }) {
 
       {isLoaded && (
         <div className="userOptions">
-        {sessionUser && <Link to="/" id="CreateNewSpot">Create a New Spot</Link>}
+        {sessionUser && <Link to="/spots/new" id="CreateNewSpot">Create a New Spot</Link>}
         <ProfileButton user={sessionUser} />
         </div>
       )}
