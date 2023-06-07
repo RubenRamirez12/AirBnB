@@ -44,7 +44,7 @@ export const signup = (user) => async (dispatch) => {
     });
 
     const data = await response.json();
-    console.log(data.errors)
+
     if (data.errors) {
         return data.errors;
     }
