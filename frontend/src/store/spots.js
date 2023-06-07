@@ -52,7 +52,6 @@ export const fetchOneSpot = (spotId) => async dispatch => {
 
     if (req.ok) {
         const data = await req.json();
-        console.log(data)
 
 
         let dataPrice = data.price
