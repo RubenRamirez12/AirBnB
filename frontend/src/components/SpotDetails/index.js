@@ -24,7 +24,7 @@ export default function SpotDetails() {
             setSpotImages(spot.SpotImages)
         }
 
-        if (spot && !reviews) {
+        if (spot && spot.numReviews > 0 && !reviews) {
             dispatch(fetchReviews(spotId))
         }
 
