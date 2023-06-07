@@ -12,8 +12,8 @@ export default function SpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots.singleSpot[spotId])
-    const [spotImages, setSpotImages] = useState(null)
     const reviews = useSelector(state => state.reviews.spots[spotId])
+    const [spotImages, setSpotImages] = useState(null)
 
     useEffect(() => {
         if (!spot) {
@@ -26,18 +26,15 @@ export default function SpotDetails() {
 
         if (spot && !reviews) {
             dispatch(fetchReviews(spotId))
-
         }
+
     }, [dispatch, spot, spotId, reviews])
 
-
-    if (!spot || !spotImages || !reviews) {
+    if (!spot || !spotImages) {
         return <div>
             LOADING!!!
         </div>
     }
-
-    console.log("HERE IT IS!", reviews)
 
     return (
         <div className="spotDetails">
@@ -73,17 +70,17 @@ export default function SpotDetails() {
 
                 <div className="reserveDiv">
                     <div className="topReserve">
-                        <h1>${typeof spot.price === 'number' && spot.price.toFixed(2)}<span id="NIGHT"> night</span></h1>
+                        <h1>${spot.price && spot.price.toFixed(2)}<span id="NIGHT"> night</span></h1>
                         <div className="rating-review">
                             <i className="fas fa-star">
-                                {spot.avgStarRating === "No reviews yet" ? "New" : typeof spot.avgStarRating === 'number' && spot.avgStarRating.toFixed(1)}
+                                {spot.avgStarRating && spot.avgStarRating === "No reviews yet" ? "New" : spot.avgStarRating.toFixed(1)}
                             </i>
                             ·
                             <div id="num-reviews">{spot.numReviews} reviews</div>
                         </div>
                     </div>
 
-                    <button id="reserveButton" onClick={(e) => {}}
+                    <button id="reserveButton" onClick={(e) => { }}
                     >
                         Reserve
                     </button>
@@ -93,16 +90,12 @@ export default function SpotDetails() {
 
             <div className="reviewDetails">
                 <h1>
-                    <i className="fas fa-star">{spot.avgStarRating === "No reviews yet" ? "New" : typeof spot.avgStarRating === 'number' && spot.avgStarRating.toFixed(1)}   ·   {spot.numReviews} reviews</i>
+                    <i className="fas fa-star">{spot.avgStarRating === 'No reviews yet' ? "New" : spot.avgStarRating.toFixed(1)} ·   {spot.numReviews} reviews</i>
                 </h1>
                 <ul className="reviewList">
-                    {reviews.map(review => {
-                        console.log(review)
-                        console.log("SPOT TO SEE LIVE", spot);
-                        console.log("AVG RATING", spot.avgStarRating);
-                        console.log("PRICE", spot.price)
-                        console.log("RISK", spot.avgStarRating.toFixed(2))
-                        let reviewDate = new Date(review.createdAt).toLocaleString('en-US', {month: 'long', year: "numeric"})
+                    {reviews && reviews.map(review => {
+
+                        let reviewDate = new Date(review.createdAt).toLocaleString('en-US', { month: 'long', year: "numeric" })
                         return (
                             <li key={review.id} className="reviewListItem">
                                 <div id="reviewName">{review.User.firstName} {review.User.lastName}</div>

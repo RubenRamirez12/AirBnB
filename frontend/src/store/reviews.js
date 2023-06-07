@@ -31,9 +31,7 @@ export const fetchReviews = (spotId) => async (dispatch) => {
         for (let review of data.Reviews) {
             normalized[spotId].push(review)
         }
-
         dispatch(readReviews(normalized))
-        
     } else {
         const errors = await req.json()
         return errors.errors
