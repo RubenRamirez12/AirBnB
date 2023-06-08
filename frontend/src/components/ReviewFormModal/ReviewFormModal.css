@@ -1,0 +1,59 @@
+.Create-Review {
+    display: flex;
+    flex-direction: column;
+    align-items: Center;
+    height: 400px;
+    width: 400px;
+    border-radius: 15px;
+    border: 5px solid black;
+    background-color: white;
+}
+
+.ReviewForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#ReviewDescription {
+    width: 90%;
+    height: 120px;
+    resize: none;
+    border: 3px solid black;
+}
+
+#star-selector {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    gap: 6px;
+    align-items: center;
+}
+
+.hovered-star {
+    color: gold;
+}
+
+#ReviewModalButton {
+    margin-top: 25px;
+    width: 90%;
+    height: 50px;
+    color: white;
+    background-color: rgb(247, 70, 70);
+    border: 3px solid black;
+    font-weight: bold;
+    font-size: 15px;
+    box-shadow: 3px 3px 3px black;
+}
+
+#ReviewModalButton:hover {
+    cursor: pointer;
+}
+
+.review-creation-errors {
+    color: red;
+    margin: 0px;
+    padding: 0px;
+}

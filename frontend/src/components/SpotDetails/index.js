@@ -4,16 +4,20 @@ import { fetchOneSpot } from "../../store/spots";
 import { useEffect, useState } from "react";
 import './SpotDetails.css'
 import { fetchReviews } from "../../store/reviews";
-
-
-
+import OpenModalReview from "./OpenModalReview";
+import ReviewFormModal from "../ReviewFormModal";
+import ReviewDeleteModal from './ReviewDeleteModal';
 
 export default function SpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.session.user)
     const spot = useSelector(state => state.spots.singleSpot[spotId])
     const reviews = useSelector(state => state.reviews.spots[spotId])
     const [spotImages, setSpotImages] = useState(null)
+
+    const [numReviews, setNumReviews] = useState(0)
+    const [avgStarRating, setAvgStarRating] = useState(0)
 
     useEffect(() => {
         if (!spot) {
@@ -28,6 +32,22 @@ export default function SpotDetails() {
             dispatch(fetchReviews(spotId))
         }
 
+        if (reviews) {
+            setNumReviews(reviews.length)
+        }
+
+        if (reviews && reviews.length > 0) {
+            let totalRating = 0;
+
+            reviews.forEach(review => {
+                totalRating += review.stars
+            })
+            let avg = (totalRating / reviews.length).toFixed(1)
+            setAvgStarRating(avg)
+        } else {
+            setAvgStarRating("New")
+        }
+
     }, [dispatch, spot, spotId, reviews])
 
     if (!spot || !spotImages) {
@@ -38,7 +58,6 @@ export default function SpotDetails() {
 
     return (
         <div className="spotDetails">
-
             <div className="topDetails">
                 <h1>{spot.name}</h1>
                 <h2>{spot.city}, {spot.state}, {spot.country}</h2>
@@ -73,10 +92,10 @@ export default function SpotDetails() {
                         <h1>${spot.price}<span id="NIGHT"> night</span></h1>
                         <div className="rating-review">
                             <i className="fas fa-star">
-                                {spot.avgStarRating === "No reviews yet" ? "New" : spot.avgStarRating}
+                                {avgStarRating}
                             </i>
                             ·
-                            <div id="num-reviews">{spot.numReviews} reviews</div>
+                            <div id="num-reviews">{numReviews} {numReviews === 1 ? 'review' : 'reviews'}</div>
                         </div>
                     </div>
 
@@ -90,8 +109,13 @@ export default function SpotDetails() {
 
             <div className="reviewDetails">
                 <h1>
-                    <i className="fas fa-star">{spot.avgStarRating === 'No reviews yet' ? "New" : spot.avgStarRating} · {spot.numReviews} reviews</i>
+                    <i className="fas fa-star">{avgStarRating} · {numReviews} {numReviews === 1 ? 'review' : 'reviews'}</i>
                 </h1>
+                {currentUser && currentUser.id !== spot.Owner.id && !(reviews && reviews.find(review => review.userId === currentUser.id)) &&
+                    <OpenModalReview
+                        itemText="Post Your Review"
+                        modalComponent={<ReviewFormModal spotId={spotId} />}
+                    />}
                 <ul className="reviewList">
                     {reviews && reviews.map(review => {
 
@@ -101,12 +125,16 @@ export default function SpotDetails() {
                                 <div id="reviewName">{review.User.firstName} {review.User.lastName}</div>
                                 <div id="reviewDate">{reviewDate}</div>
                                 <div id="reviewParagraph">{review.review}</div>
+                                {currentUser && review.userId === currentUser.id &&
+                                    <OpenModalReview
+                                        itemText="Delete"
+                                        modalComponent={<ReviewDeleteModal review={review} spot={spot} />}
+                                    />}
                             </li>
                         )
                     })}
                 </ul>
             </div>
-
         </div>
     )
 }
