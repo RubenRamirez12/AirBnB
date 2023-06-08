@@ -120,7 +120,12 @@ export const spotCreator = (payload) => async (dispatch) => {
             })
         }
 
-        dispatch(fetchOneSpot(data.id))
+        dispatch(createSpot({
+            ...data,
+            previewImage: currentPhotos[0],
+            avgRating: "No reviews yet"
+        }))
+
         return data
     } else {
         const errors = await res.json();
@@ -136,6 +141,9 @@ const spotsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
+        case CREATE_SPOT: {
+            return {...state, allSpots:{ ...state.allSpots, [action.payload.id]: action.payload}}
+        }
 
         case READ_SPOTS: {
             return { ...state, allSpots: { ...action.body } }

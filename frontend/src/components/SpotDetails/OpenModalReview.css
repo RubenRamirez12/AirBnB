@@ -1,0 +1,13 @@
+#THE-Button-Modal {
+    background-color: gray;
+    color: white;
+    border: 3px solid black;
+    box-shadow: 3px 3px 3px black;
+    padding: 5px;
+    width: 150px;
+}
+
+
+#THE-Button-Modal:hover {
+    cursor: pointer;
+}
