@@ -46,8 +46,9 @@ export default function CreateSpotForm() {
         price,
         photos: [photo1, photo2, photo3, photo4, photo5]
       }))
-
-      history.push(`/spots/${newSpot.id}`)
+      setTimeout(() => {
+        history.push(`/spots/${newSpot.id}`)
+      }, 500)
     }
 
   }
@@ -266,6 +267,7 @@ export default function CreateSpotForm() {
                 onChange={(e) => setPhoto1(e.target.value)}
                 required
                 placeholder="Preview Image URL"
+                onPaste={(e) => setPhoto1(e.clipboardData.getData('text/plain'))}
               />
               {checkedVal && errors.photo1 && <p className="spot-creation-errors">{errors.photo1}</p>}
             </div>
@@ -275,6 +277,7 @@ export default function CreateSpotForm() {
                 type="url"
                 onChange={(e) => setPhoto2(e.target.value)}
                 placeholder="Image URL"
+                onPaste={(e) => setPhoto2(e.clipboardData.getData('text/plain'))}
               />
               {checkedVal && errors.photo2 && <p className="spot-creation-errors">{errors.photo2}</p>}
             </div>
@@ -284,6 +287,7 @@ export default function CreateSpotForm() {
                 type="url"
                 onChange={(e) => setPhoto3(e.target.value)}
                 placeholder="Image URL"
+                onPaste={(e) => setPhoto3(e.clipboardData.getData('text/plain'))}
               />
               {checkedVal && errors.photo3 && <p className="spot-creation-errors">{errors.photo3}</p>}
             </div>
@@ -292,6 +296,7 @@ export default function CreateSpotForm() {
               <input
                 type="url"
                 onChange={(e) => setPhoto4(e.target.value)}
+                onPaste={(e) => setPhoto4(e.clipboardData.getData('text/plain'))}
                 placeholder="Image URL"
               />
               {checkedVal && errors.photo4 && <p className="spot-creation-errors">{errors.photo4}</p>}
@@ -301,6 +306,7 @@ export default function CreateSpotForm() {
               <input
                 type="url"
                 onChange={(e) => setPhoto5(e.target.value)}
+                onPaste={(e) => setPhoto5(e.clipboardData.getData('text/plain'))}
                 placeholder="Image URL"
               />
             </div>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import './SpotCard.css'
+import { useEffect } from "react";
 
 
 
@@ -36,3 +37,44 @@ export default function SpotCard({ spot }) {
         </div >
     )
 }
+
+
+
+// useEffect(() => {
+//     if (!spot || !loadedSpot) {
+//         dispatch(fetchOneSpot(spotId))
+//         setLoadedSpot(true)
+//     }
+
+//     if (spot && loadedSpot && spot.numReviews > 0) {
+//         dispatch(fetchReviews(spotId))
+//         setLoadedReviews(true)
+//     } else {
+//         setLoadedReviews(true)
+//     }
+
+//     if (reviews && loadedReviews && reviews.length > 0) {
+//         let totalRating = 0;
+
+//         reviews.forEach(review => {
+//             totalRating += review.stars
+//         })
+
+//         let avg = (totalRating / reviews.length).toFixed(1)
+
+//         setAvgStarRating(avg)
+//     } else {
+//         setAvgStarRating("New")
+//     }
+
+//     if (spot && loadedSpot) {
+//         setSpotImages(spot.SpotImages)
+//         setLoadedImages(true)
+//     }
+
+//     if (reviews && loadedReviews) {
+//         setNumReviews(review.length)
+//     }
+
+
+// }, [dispatch, spotId, spot, loadedSpot, loadedImages, loadedReviews])

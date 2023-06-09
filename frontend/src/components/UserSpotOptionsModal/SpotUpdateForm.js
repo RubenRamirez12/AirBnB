@@ -10,7 +10,7 @@ export default function SpotUpdateForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { spotId } = useParams();
-	const spot = useSelector(state => state.spots.singleSpot[spotId])
+	const spot = useSelector(state => state.spots.singleSpot)
 
 	const [country, setCountry] = useState("");
 	const [streetAddress, setStreetAddress] = useState("");
@@ -35,11 +35,11 @@ export default function SpotUpdateForm() {
 
 	useEffect(() => {
 		dispatch(fetchOneSpot(spotId))
-	},[])
+	}, [dispatch, spotId])
 
 	useEffect(() => {
 
-		if(spot && spot.SpotImages) {
+		if (spot && spot.SpotImages) {
 			setCountry(spot.country)
 			setStreetAddress(spot.address)
 			setCity(spot.city)
@@ -80,34 +80,8 @@ export default function SpotUpdateForm() {
 			setPhotoIds(allIds)
 		}
 
-	}, [dispatch, spot])
+	}, [dispatch, spot, spotId])
 
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setCheckedVal(true)
-
-		if (Object.values(errors).length === 0) {
-			dispatch(spotUpdator({
-				spotId,
-				address: streetAddress,
-				city,
-				state,
-				country,
-				lat: latitude,
-				lng: longitude,
-				name: title,
-				description,
-				price,
-				photos: [photo1, photo2, photo3, photo4, photo5],
-				photoIds,
-				avgRating: spot.avgStarRating
-			}))
-				.then(() => history.push(`/spots/${spotId}`))
-				.catch(error => console.log(error))
-		}
-
-	}
 
 	useEffect(() => {
 		let errorObj = {}
@@ -167,8 +141,42 @@ export default function SpotUpdateForm() {
 		setErrors(errorObj)
 	}, [country, streetAddress, city, state, description, title, price, photo1, photo2, photo3, photo4, photo5])
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setCheckedVal(true)
 
-	if(!spot) {
+		if (Object.values(errors).length === 0) {
+			let errors = null
+			dispatch(spotUpdator({
+				spotId,
+				address: streetAddress,
+				city,
+				state,
+				country,
+				lat: latitude,
+				lng: longitude,
+				name: title,
+				description,
+				price,
+				photos: [photo1, photo2, photo3, photo4, photo5],
+				photoIds,
+				avgRating: spot.avgStarRating
+			}))
+				.catch(error => errors = error)
+
+
+			if (errors) {
+				console.log(errors)
+			} else {
+				setTimeout(() => {
+					history.push(`/spots/${spotId}`)
+				}, 500)
+			}
+		}
+
+	}
+
+	if (!spot) {
 		return (
 			<h1>fixing</h1>
 		)
