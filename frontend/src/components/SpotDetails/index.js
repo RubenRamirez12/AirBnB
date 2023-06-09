@@ -54,6 +54,7 @@ export default function SpotDetails() {
 
 	}, [dispatch, reviews, spot])
 
+
 	if (!spot || loaded === false || !spotImages) {
 		return <div>
 			LOADING!!!
@@ -95,7 +96,7 @@ export default function SpotDetails() {
 					<div className="topReserve">
 						<h1>${spot.price}<span id="NIGHT"> night</span></h1>
 						<div className="rating-review">
-							<i className="fas fa-star">
+							<i className="fa fa-star">
 								{avgStarRating}
 							</i>
 							·
@@ -113,7 +114,7 @@ export default function SpotDetails() {
 
 			<div className="reviewDetails">
 				<h1>
-					<i className="fas fa-star">{avgStarRating} · {numReviews} {numReviews === 1 ? 'review' : 'reviews'}</i>
+					<i className="fa fa-star">{avgStarRating} · {numReviews} {numReviews === 1 ? 'review' : 'reviews'}</i>
 				</h1>
 				{currentUser && currentUser.id !== spot.Owner.id && !(reviews && reviews.find(review => review.userId === currentUser.id)) &&
 					<OpenModalReview
