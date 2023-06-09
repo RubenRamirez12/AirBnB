@@ -20,10 +20,10 @@ export default function SpotDetails() {
     const [avgStarRating, setAvgStarRating] = useState(0)
 
     useEffect(() => {
-        if (!spot) {
-            dispatch(fetchOneSpot(spotId))
-        }
+        dispatch(fetchOneSpot(spotId))
+    },[])
 
+    useEffect(() => {
         if (spot) {
             setSpotImages(spot.SpotImages)
         }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -10,19 +10,33 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [checkedval, setCheckedVal] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors({});
-    return dispatch(sessionActions.login({ credential, password }))
-      .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
-        }
-      });
+    setCheckedVal(true)
+
+    if (Object.values(errors).length === 0) {
+      return dispatch(sessionActions.login({ credential, password }))
+        .then(closeModal)
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) {
+            setErrors(data.errors);
+          }
+        });
+    }
+
   };
+
+  useEffect(() => {
+    let tempErrors = {}
+    if (credential.length < 4 || password.length < 6) {
+      tempErrors.credential = "The provided credentials were invalid"
+    }
+
+    setErrors(tempErrors)
+  },[credential,password])
 
   return (
     <div className="Login">
@@ -37,7 +51,7 @@ function LoginFormModal() {
             onChange={(e) => setCredential(e.target.value)}
             required
           />
-          {errors.credential && <p className="login-errors">{errors.credential}</p>}
+          {checkedval && errors.credential && <p className="login-errors">{errors.credential}</p>}
         </label>
 
         <label>
@@ -50,7 +64,9 @@ function LoginFormModal() {
           />
         </label>
 
-        <button id="LoginModalButton" type="submit">Log In</button>
+        <button id="LoginModalButton" type="submit"
+        disabled={checkedval === true && Object.values(errors).length > 0}
+        >Log In</button>
 
       </form>
 
@@ -60,14 +76,14 @@ function LoginFormModal() {
 
 
         <button className="demoUserButton" onClick={() => {
-          dispatch(sessionActions.login({ credential: "Demo1", password:"Demo123" }))
-          .then(closeModal)
+          dispatch(sessionActions.login({ credential: "Demo1", password: "Demo123" }))
+            .then(closeModal)
         }}>Demo User 1</button>
 
 
         <button className="demoUserButton" onClick={() => {
-          dispatch(sessionActions.login({ credential: "Demo2", password:"Demo123" }))
-          .then(closeModal)
+          dispatch(sessionActions.login({ credential: "Demo2", password: "Demo123" }))
+            .then(closeModal)
         }}>Demo User 2</button>
 
 

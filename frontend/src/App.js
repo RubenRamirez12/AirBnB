@@ -7,6 +7,8 @@ import { Route } from "react-router-dom";
 import Catalog from '../src/components/Catalog'
 import SpotDetails from "./components/SpotDetails";
 import CreateSpotForm from "./components/CreateSpotForm";
+import SpotsCurrent from "./components/SpotsCurrent";
+import SpotUpdateForm from "./components/UserSpotOptionsModal/SpotUpdateForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,9 +32,18 @@ function App() {
             <CreateSpotForm />
           </Route>
 
+          <Route path='/spots/current'>
+            <SpotsCurrent />
+          </Route>
+
+          <Route path='/spots/:spotId/edit'>
+            <SpotUpdateForm />
+          </Route>
+
           <Route path="/spots/:spotId">
             <SpotDetails />
           </Route>
+
 
         </Switch>
       }

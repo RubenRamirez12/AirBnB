@@ -1,0 +1,36 @@
+.userCatalogDiv {
+    display: grid;
+    grid-template-columns: repeat(4, 22%);
+    justify-content: space-evenly;
+    margin-top: 20px;
+    gap: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.userSpotCard {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    height: 300px;
+}
+
+.spot-Options {
+    display: flex;
+    gap: 50px;
+}
+
+#update-spot-button {
+    background-color: gray;
+    color: white;
+    border: 3px solid black;
+    box-shadow: 3px 3px 3px black;
+    padding: 5px;
+    width: 150px;
+}
+
+#update-spot-button:hover {
+    cursor: pointer;
+}
