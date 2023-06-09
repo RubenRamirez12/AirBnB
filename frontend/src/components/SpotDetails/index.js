@@ -14,7 +14,7 @@ export default function SpotDetails() {
 	const currentUser = useSelector(state => state.session.user)
 	const spot = useSelector(state => state.spots.singleSpot[spotId])
 	const reviews = useSelector(state => state.reviews.spots[spotId])
-	const [spotImages, setSpotImages] = useState([])
+	const [spotImages, setSpotImages] = useState(null)
 	const [numReviews, setNumReviews] = useState(0)
 	const [avgStarRating, setAvgStarRating] = useState(0)
 	const [loaded, setLoaded] = useState(false)
@@ -25,17 +25,12 @@ export default function SpotDetails() {
 	}, [dispatch, spotId])
 
 	useEffect(() => {
-		if (spot || spotImages.length !== 0) {
-			setSpotImages([...spot.SpotImages])
-		}
-
-		if (spot && spot.numReviews > 0 && !reviews) {
+		if (spot && spot.numReviews > 0) {
 			dispatch(fetchReviews(spotId))
 		}
+	},[dispatch,spotId,spot])
 
-		if (reviews) {
-			setNumReviews(reviews.length)
-		}
+	useEffect(() => {
 
 		if (reviews && reviews.length > 0) {
 			let totalRating = 0;
@@ -49,9 +44,17 @@ export default function SpotDetails() {
 			setAvgStarRating("New")
 		}
 
-	}, [dispatch, spot, spotId, reviews])
+		if (spot) {
+			setSpotImages(spot.SpotImages)
+		}
 
-	if (!spot || spotImages.length === 0 || loaded === false || !reviews) {
+		if (reviews) {
+			setNumReviews(reviews.length)
+		}
+
+	}, [dispatch, reviews, spot])
+
+	if (!spot || loaded === false || !spotImages) {
 		return <div>
 			LOADING!!!
 		</div>

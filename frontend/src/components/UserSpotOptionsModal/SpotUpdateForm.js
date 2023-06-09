@@ -52,7 +52,7 @@ export default function SpotUpdateForm() {
 
 			let spotImages = spot.SpotImages;
 			let allIds = [];
-			console.log(spotImages, "THIS IS THROWING AN ERROR")
+
 			for (let i = 0; i < spotImages.length; i++) {
 				let currentImage = spotImages[i]
 

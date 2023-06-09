@@ -64,7 +64,8 @@ function LoginFormModal() {
           />
         </label>
 
-        <button id="LoginModalButton" type="submit"
+        <button className={`LoginModalButton ${Object.values(errors).length === 0 ? "goodLoginButton" : ""}`}
+        type="submit"
         disabled={checkedval === true && Object.values(errors).length > 0}
         >Log In</button>
 

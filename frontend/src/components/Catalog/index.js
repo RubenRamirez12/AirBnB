@@ -15,19 +15,11 @@ export default function Catalog() {
     }, [dispatch])
 
 
-
-
-
     if (loaded === false) {
         return (
             <h1>loading!</h1>
         )
     }
-
-
-
-    console.log(spots, "THROWING ERROR?")
-
 
 
     return (

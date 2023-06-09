@@ -220,11 +220,9 @@ export const spotUpdator = (payload) => async (dispatch) => {
   });
 
   if (req.ok) {
-    console.log("Updating successfully")
     const data = await req.json()
 
     for (let i = 0; i < photoIds.length; i++) {
-      console.log(photoIds)
       await csrfFetch(`/api/spot-images/${photoIds[i]}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },

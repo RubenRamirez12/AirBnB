@@ -13,7 +13,6 @@ export default function SpotsCurrent() {
     const currentUser = useSelector(state => state.session.user)
     const currentUserSpots = useSelector(state => Object.values(state.spots.userSpots))
 
-    console.log(currentUserSpots)
     useEffect(() => {
 
         if (currentUser) {
