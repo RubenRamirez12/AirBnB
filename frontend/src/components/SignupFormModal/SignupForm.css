@@ -39,3 +39,16 @@ input {
     padding: 0px;
     margin: 0px;
 }
+
+.goodInfoButton {
+    width: 95%;
+    height: 45px;
+    box-shadow: 2px 2px 2px rgb(175, 175, 175);
+    border: 2px solid rgb(175, 175, 175);
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 72, 72);
+}
+
+.SignupModalButton:hover {
+    cursor: pointer;
+}

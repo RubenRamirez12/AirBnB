@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import './CreateSpotForm.css'
 import { spotCreator } from '../../store/spots'
@@ -27,6 +27,8 @@ export default function CreateSpotForm() {
   const [checkedVal, setCheckedVal] = useState(false)
   const [errors, setErrors] = useState({});
 
+  const [loaded, setLoaded] = useState(false)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setCheckedVal(true)
@@ -49,6 +51,10 @@ export default function CreateSpotForm() {
     }
 
   }
+
+  useEffect(() => {
+    setLoaded(true)
+  },[])
 
   useEffect(() => {
     let errorObj = {}
@@ -107,6 +113,12 @@ export default function CreateSpotForm() {
 
     setErrors(errorObj)
   }, [country, streetAddress, city, state, description, title, price, photo1, photo2, photo3, photo4, photo5])
+
+  if (setLoaded === false) {
+    return (
+      <h1>Loading</h1>
+    )
+  }
 
   return (
     <div className="spotCreate">

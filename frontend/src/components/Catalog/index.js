@@ -7,10 +7,28 @@ import './Catalog.css'
 export default function Catalog() {
     const dispatch = useDispatch()
     const spots = useSelector(state => Object.values(state.spots.allSpots));
+    const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
         dispatch(fetchAllSpots())
+        setLoaded(true)
     }, [dispatch])
+
+
+
+
+
+    if (loaded === false) {
+        return (
+            <h1>loading!</h1>
+        )
+    }
+
+
+
+    console.log(spots, "THROWING ERROR?")
+
+
 
     return (
         <div className="catalogDiv">
