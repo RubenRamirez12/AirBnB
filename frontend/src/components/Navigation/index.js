@@ -12,7 +12,7 @@ function Navigation({ isLoaded }) {
     <div className="NavBar">
 
       <NavLink exact to="/" className="Home-Icon">
-      <i className="fas fa-dragon"></i>
+      <i className="fa fa-dragon"></i>
       Airdnd
       </NavLink>
 

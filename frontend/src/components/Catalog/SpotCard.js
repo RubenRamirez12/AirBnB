@@ -20,7 +20,7 @@ export default function SpotCard({ spot }) {
                     </Link>
 
                     <Link to={`/spots/${spot.id}`} id="topRightInfo">
-                        <i className="fas fa-star">
+                        <i className="fa fa-star">
                             {spot.avgRating === "No reviews yet" ? "New" : spot.avgRating}
                         </i>
                     </Link>
