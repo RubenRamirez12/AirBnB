@@ -65,3 +65,7 @@ li {
 #logout-button:hover {
     cursor: pointer;
 }
+
+.profileButton:hover {
+    cursor: pointer;
+}

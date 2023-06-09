@@ -137,7 +137,7 @@ function SignupFormModal() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {errors.password && <p className="signup-errors">{errors.password}</p>}
+          {checkedVal && errors.password && <p className="signup-errors">{errors.password}</p>}
         </label>
 
         <label>
@@ -148,10 +148,10 @@ function SignupFormModal() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          {errors.confirmPassword && (<p children className="signup-errors">{errors.confirmPassword}</p>)}
+          {checkedVal && errors.confirmPassword && (<p children className="signup-errors">{errors.confirmPassword}</p>)}
         </label>
 
-        <button className="SignupModalButton" type="submit" disabled={checkedVal === true && Object.values(errors).length > 0}>Sign Up</button>
+        <button className={`SignupModalButton ${Object.values(errors).length === 0 ? "goodInfoButton" : ""}`} type="submit" disabled={checkedVal === true && Object.values(errors).length > 0}>Sign Up</button>
 
       </form>
     </div>
