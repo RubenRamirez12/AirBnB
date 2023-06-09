@@ -1,0 +1,96 @@
+.spotUpdate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.spotUpdateForm {
+    width: 25%;
+}
+
+#SU-Row3 {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#R3-C1 {
+    width: 63%
+}
+
+#R3-C2 {
+    width: 35%
+}
+
+#SU-Description {
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#description-area {
+    width: 100%;
+    resize: none;
+    height: 120px;
+    border: 3px solid black
+}
+
+#SU-Title {
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#inside-SU-Price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#SU-Price {
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#inside-SU-Images {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#SU-Images {
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+#SU-button-Div {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 25px;
+}
+
+#SU-submit-button {
+    background-color: rgb(253, 77, 77);
+    color: white;
+    font-size: 15px;
+    box-shadow: 3px 3px 3px black;
+    padding: 5px;
+    width: 100px
+}
+
+.section-heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px
+}
+
+.spot-update-errors {
+    color: red;
+    padding: 0px;
+    margin: 0px;
+}

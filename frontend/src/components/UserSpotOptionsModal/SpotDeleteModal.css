@@ -1,0 +1,59 @@
+.Delete-Spot {
+    display: flex;
+    flex-direction: column;
+
+    align-items: Center;
+    height: fit-content;
+    width: 400px;
+    border-radius: 15px;
+    border: 5px solid black;
+    background-color: white;
+    padding: 20px;
+}
+
+#confirm-delete {
+    padding: 0px;
+    margin: 0px
+}
+
+#delete-Spot-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.Spot-edit-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 10px;
+    width: 90%;
+}
+
+.Buttons-in-delete{
+
+    border: 3px solid black;
+    box-shadow: 3px 3px 3px black;
+    height: 40px;
+    color: white;
+}
+
+#confirm-delete-button {
+    background-color: rgb(255, 71, 71);
+}
+
+#confirm-keep-button {
+    background-color: rgb(94, 94, 94);
+}
+
+#confirm-delete-button:hover {
+    cursor: pointer;
+}
+
+#confirm-keep-button:hover {
+    cursor: pointer;
+}

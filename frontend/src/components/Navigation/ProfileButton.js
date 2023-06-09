@@ -6,6 +6,7 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './ProfileButton.css'
 import { useHistory } from 'react-router-dom'
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -55,7 +56,9 @@ function ProfileButton({ user }) {
             <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
             <li id="manage-spots">
-              Manage Spots Button Element
+              <Link to="/spots/current">
+                Manage Spots
+              </Link>
             </li>
             <li id="logout-button-li">
               <button id="logout-button" onClick={logout}>Log Out</button>

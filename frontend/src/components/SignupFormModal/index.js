@@ -14,11 +14,13 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [checkedVal, setCheckedVal] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      setErrors({});
+    setCheckedVal(true)
+
+    if (Object.values(errors)) {
       return dispatch(
         sessionActions.signup({
           email,
@@ -35,10 +37,48 @@ function SignupFormModal() {
           }
         });
     }
-    return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
-    });
+
   };
+
+  useEffect(() => {
+    let tempErrors = {};
+
+    if (!email) {
+      tempErrors.email = "Please fill out this field"
+    }
+
+
+    if (!username) {
+      tempErrors.username = "Please fill out this field"
+    }
+
+    if (username && username.length < 4) {
+      tempErrors.username = "Please provide a username with at least 4 characters."
+    }
+
+    if (!firstName) {
+      tempErrors.firstName = "Please fill out this field"
+    }
+
+    if (!lastName) {
+      tempErrors.lastName = "Please fill out this field"
+    }
+
+    if (!password) {
+      tempErrors.password = "please fill out this field"
+    }
+
+    if (password && (!confirmPassword || password !== confirmPassword)) {
+      tempErrors.password = "Confirm Password field must be the same as the Password field"
+    }
+
+    if (password && password.length < 6) {
+      tempErrors.password = "Password must be 6 characters or more."
+    }
+
+    setErrors(tempErrors)
+
+  }, [email, username, firstName, lastName, password, confirmPassword])
 
   return (
     <div className="Signup">
@@ -48,12 +88,12 @@ function SignupFormModal() {
         <label>
           Email
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          {errors.email && <p className="signup-errors">{errors.email}</p>}
+          {checkedVal && errors.email && <p className="signup-errors">{errors.email}</p>}
         </label>
 
         <label>
@@ -64,7 +104,7 @@ function SignupFormModal() {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          {errors.username && <p className="signup-errors">{errors.username}</p>}
+          {checkedVal && errors.username && <p className="signup-errors">{errors.username}</p>}
         </label>
 
         <label>
@@ -75,7 +115,7 @@ function SignupFormModal() {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-          {errors.firstName && <p className="signup-errors">{errors.firstName}</p>}
+          {checkedVal && errors.firstName && <p className="signup-errors">{errors.firstName}</p>}
         </label>
 
         <label>
@@ -86,7 +126,7 @@ function SignupFormModal() {
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-          {errors.lastName && <p className="signup-errors">{errors.lastName}</p>}
+          {checkedVal && errors.lastName && <p className="signup-errors">{errors.lastName}</p>}
         </label>
 
         <label>
@@ -111,7 +151,7 @@ function SignupFormModal() {
           {errors.confirmPassword && (<p children className="signup-errors">{errors.confirmPassword}</p>)}
         </label>
 
-        <button className="SignupModalButton" type="submit" >Sign Up</button>
+        <button className="SignupModalButton" type="submit" disabled={checkedVal === true && Object.values(errors).length > 0}>Sign Up</button>
 
       </form>
     </div>
