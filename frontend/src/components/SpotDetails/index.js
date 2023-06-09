@@ -12,50 +12,52 @@ export default function SpotDetails() {
 	const { spotId } = useParams();
 	const dispatch = useDispatch();
 	const currentUser = useSelector(state => state.session.user)
-	const spot = useSelector(state => state.spots.singleSpot[spotId])
+	const spot = useSelector(state => state.spots.singleSpot)
 	const reviews = useSelector(state => state.reviews.spots[spotId])
 	const [spotImages, setSpotImages] = useState(null)
 	const [numReviews, setNumReviews] = useState(0)
 	const [avgStarRating, setAvgStarRating] = useState(0)
-	const [loaded, setLoaded] = useState(false)
 
+	const [loaded, setLoaded] = useState(false)
+	const [loaded2, setLoaded2] = useState(false)
+
+	//initial Fetch
 	useEffect(() => {
 		dispatch(fetchOneSpot(spotId))
 		setLoaded(true)
 	}, [dispatch, spotId])
 
 	useEffect(() => {
-		if (spot && spot.numReviews > 0) {
+		if (spot && loaded && spot.numReviews > 0) {
 			dispatch(fetchReviews(spotId))
 		}
-	},[dispatch,spotId,spot])
+		setLoaded2(true)
+	}, [dispatch, loaded, spotId])
 
 	useEffect(() => {
+		if (spot && loaded && loaded2) {
 
-		if (reviews && reviews.length > 0) {
-			let totalRating = 0;
+			if (reviews) {
+				setNumReviews(reviews.length)
+			}
 
-			reviews.forEach(review => {
-				totalRating += review.stars
-			})
-			let avg = (totalRating / reviews.length).toFixed(1)
-			setAvgStarRating(avg)
-		} else {
-			setAvgStarRating("New")
+			if (reviews && reviews.length > 0) {
+				let totalRating = 0;
+
+				reviews.forEach(review => {
+					totalRating += review.stars
+				})
+				let avg = (totalRating / reviews.length).toFixed(1)
+				setAvgStarRating(avg)
+
+			} else {
+				setAvgStarRating("New")
+			}
 		}
 
-		if (spot) {
-			setSpotImages(spot.SpotImages)
-		}
+	}, [dispatch, loaded, loaded2, spotId, spot])
 
-		if (reviews) {
-			setNumReviews(reviews.length)
-		}
-
-	}, [dispatch, reviews, spot])
-
-
-	if (!spot || loaded === false || !spotImages) {
+	if (!loaded || !loaded2 || !spot || !spot.SpotImages) {
 		return <div>
 			LOADING!!!
 		</div>
@@ -71,14 +73,14 @@ export default function SpotDetails() {
 			<div className="imageDetails">
 				{/* mental note B.W. */}
 				<div className="mainImageDetails">
-					{spotImages[0] && <img id="image1" className="sideImages" src={spotImages[0].url} />}
+					{spot.SpotImages[0] && <img id="image1" className="sideImages" src={spot.SpotImages[0].url} />}
 				</div>
 
 				<div className="sideImageDetails">
-					{spotImages[1] && <img id="image2" className="sideImages" src={spotImages[1].url} />}
-					{spotImages[2] && <img id="image3" className="sideImages" src={spotImages[2].url} />}
-					{spotImages[3] && <img id="image4" className="sideImages" src={spotImages[3].url} />}
-					{spotImages[4] && <img id="image5" className="sideImages" src={spotImages[4].url} />}
+					{spot.SpotImages[1] && <img id="image2" className="sideImages" src={spot.SpotImages[1].url} />}
+					{spot.SpotImages[2] && <img id="image3" className="sideImages" src={spot.SpotImages[2].url} />}
+					{spot.SpotImages[3] && <img id="image4" className="sideImages" src={spot.SpotImages[3].url} />}
+					{spot.SpotImages[4] && <img id="image5" className="sideImages" src={spot.SpotImages[4].url} />}
 				</div>
 
 			</div>
@@ -86,7 +88,7 @@ export default function SpotDetails() {
 			<div className="descriptionDetails">
 
 				<div className="actualDescription">
-					<h1>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h1>
+					<h1>Hosted by {spot.Owner.firstName}</h1>
 
 					<p>{spot.description}</p>
 
@@ -122,7 +124,9 @@ export default function SpotDetails() {
 						modalComponent={<ReviewFormModal spotId={spotId} />}
 					/>}
 				<ul className="reviewList">
-					{reviews && reviews.map(review => {
+					{reviews && reviews.map((loopReview, index) => {
+						let review = reviews[reviews.length - (1 + index)]
+
 
 						let reviewDate = new Date(review.createdAt).toLocaleString('en-US', { month: 'long', year: "numeric" })
 						return (

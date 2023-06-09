@@ -221,7 +221,6 @@ export const spotUpdator = (payload) => async (dispatch) => {
 
   if (req.ok) {
     const data = await req.json()
-
     for (let i = 0; i < photoIds.length; i++) {
       await csrfFetch(`/api/spot-images/${photoIds[i]}`, {
         method: "DELETE",
@@ -270,7 +269,7 @@ const spotsReducer = (state = initialState, action) => {
     }
 
     case READ_SPOT: {
-      return { ...state, singleSpot: { ...state.singleSpot, [action.body.id]: action.body } }
+      return { ...state, singleSpot: { ...action.body } }
     }
 
     case READ_USER_SPOTS: {
@@ -278,7 +277,8 @@ const spotsReducer = (state = initialState, action) => {
     }
 
     case UPDATE_SPOT: {
-      return { ...state, singleSpot: { ...state.singleSpot, [action.body.id]: action.body } }
+      // return { ...state, singleSpot: { ...state.singleSpot, [action.body.id]: action.body } }
+      return { ...state, userSpots: { ...state.userSpots, [action.body.id]: {...action.body.id} } }
     }
 
     case DELETE_SPOT: {
