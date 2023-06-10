@@ -38,14 +38,16 @@ export default function SpotsCurrent() {
 
                         <div className="spot-Options">
 
-                            <Link to={`/spots/${spot.id}/edit`}>
+                            <Link className="Temp-Buttons" to={`/spots/${spot.id}/edit`}>
                                 <button id="update-spot-button">Update</button>
                             </Link>
 
-                            <OpenModalReview
-                                itemText="Delete"
-                                modalComponent={<SpotDeleteModal spotId={spot.id} />}
-                            />
+                            <div className="Temp-Buttons">
+                                <OpenModalReview
+                                    itemText="Delete"
+                                    modalComponent={<SpotDeleteModal spotId={spot.id} />}
+                                />
+                            </div>
 
                         </div>
 
