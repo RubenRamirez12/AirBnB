@@ -12,7 +12,7 @@ export default function SpotDetails() {
 	const { spotId } = useParams();
 	const dispatch = useDispatch();
 	const currentUser = useSelector(state => state.session.user)
-	const spot = useSelector(state => state.spots.singleSpot)
+	const spot = useSelector(state => state.spots.singleSpot[spotId])
 	const reviews = useSelector(state => state.reviews.spots[spotId])
 	const [spotImages, setSpotImages] = useState(null)
 	const [numReviews, setNumReviews] = useState(0)
