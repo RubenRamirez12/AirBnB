@@ -30,6 +30,7 @@ export default function SpotUpdateForm() {
 
 	const [photoIds, setPhotoIds] = useState([])
 
+	const [preview, setPreview] = useState([])
 	const [checkedVal, setCheckedVal] = useState(false)
 	const [errors, setErrors] = useState({});
 
@@ -55,8 +56,11 @@ export default function SpotUpdateForm() {
 
 			let previewImage = spot.SpotImages.find(image => image.preview === true)
 
-			setPhoto1(previewImage.url)
-			allIds.push(previewImage.id)
+			if (previewImage) {
+				setPhoto1(previewImage.url)
+				allIds.push(previewImage.id)
+				setPreview(true)
+			}
 
 			let normalImages = []
 
@@ -91,7 +95,7 @@ export default function SpotUpdateForm() {
 			setPhotoIds(allIds)
 		}
 
-	}, [dispatch, spot, spotId])
+	}, [dispatch, spot, spotId, preview])
 
 
 	useEffect(() => {
@@ -177,28 +181,26 @@ export default function SpotUpdateForm() {
 				photoIds,
 				avgRating: spot.avgStarRating
 			}))
-				.catch(error => errors = error)
 
 
-			if (errors) {
-				console.log(errors)
-			} else {
-				setTimeout(() => {
-					dispatch(fetchOneSpot(spotId))
-						.then(() => {
+				.then(() => {
+					setTimeout(() => {
+						dispatch(fetchOneSpot(spotId)).then(() => {
 							setTimeout(() => {
 								history.push(`/spots/${spotId}`)
 							}, 750)
 						})
-				}, 750)
-			}
+					}, 750)
+				})
+				.catch(error => errors = error)
+
 		}
 
 	}
 
-	if (!spot || !photo1) {
+	if (!spot || !photo1 || !preview) {
 		return (
-			<h1>fixing</h1>
+			<h1>loading</h1>
 		)
 	}
 
