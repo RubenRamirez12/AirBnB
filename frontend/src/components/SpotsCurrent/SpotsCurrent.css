@@ -6,7 +6,6 @@
     gap: 10px;
     margin-left: 15px;
     margin-right: 15px;
-    height: 300px;
 }
 
 .userSpotCard {
@@ -15,6 +14,8 @@
     flex-direction: column;
     align-items: center;
     margin: 0px;
+    height: 400px;
+    margin-bottom: 30px;
 }
 
 .spot-Options {
@@ -42,4 +43,9 @@
     flex-direction: row;
     justify-content: space-between;
     width: 45%;
+}
+
+
+#card-user-holder {
+    height: 300px;
 }

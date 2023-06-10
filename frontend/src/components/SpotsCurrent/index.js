@@ -34,7 +34,9 @@ export default function SpotsCurrent() {
             {currentUserSpots && currentUserSpots.map(spot => {
                 return (
                     <div key={spot.id} className="userSpotCard">
-                        <SpotCard spot={spot} />
+                        <div id="card-user-holder">
+                            <SpotCard spot={spot} />
+                        </div>
 
                         <div className="spot-Options">
 
