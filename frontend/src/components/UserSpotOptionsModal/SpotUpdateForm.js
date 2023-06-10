@@ -184,9 +184,11 @@ export default function SpotUpdateForm() {
 				console.log(errors)
 			} else {
 				dispatch(fetchOneSpot(spotId))
-				setTimeout(() => {
-					history.push(`/spots/${spotId}`)
-				}, 500)
+					.then(
+						setTimeout(() => {
+							history.push(`/spots/${spotId}`)
+						}, 1500)
+					)
 			}
 		}
 
