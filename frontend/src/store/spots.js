@@ -269,7 +269,7 @@ const spotsReducer = (state = initialState, action) => {
     }
 
     case READ_SPOT: {
-      return { ...state, singleSpot: { ...action.body } }
+      return { ...state, singleSpot: { ...state.singleSpot, [action.body.id]: action.body } }
     }
 
     case READ_USER_SPOTS: {

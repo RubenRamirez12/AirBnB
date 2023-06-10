@@ -10,7 +10,7 @@ export default function SpotUpdateForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { spotId } = useParams();
-	const spot = useSelector(state => state.spots.singleSpot)
+	const spot = useSelector(state => state.spots.singleSpot[spotId])
 
 	const [country, setCountry] = useState("");
 	const [streetAddress, setStreetAddress] = useState("");
