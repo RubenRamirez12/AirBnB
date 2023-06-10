@@ -27,36 +27,40 @@ export default function SpotsCurrent() {
             <h1>Please log in to a account</h1>
         )
     }
-
+    console.log(currentUserSpots)
     return (
-        <div className="userCatalogDiv">
+        <div className="whole-userSpots">
+            <div className="management-Div-settings">
+                <h1>Manage Spots</h1>
+                {currentUserSpots && currentUserSpots.length === 0 && <Link to="/spots/new" id="Create-New-Spot-manage">Create a New Spot</Link>}
+            </div>
+            <div className="userCatalogDiv">
+                {currentUserSpots && currentUserSpots.map(spot => {
+                    return (
+                        <div key={spot.id} className="userSpotCard">
+                            <div id="card-user-holder">
+                                <SpotCard spot={spot} />
+                            </div>
 
-            {currentUserSpots && currentUserSpots.map(spot => {
-                return (
-                    <div key={spot.id} className="userSpotCard">
-                        <div id="card-user-holder">
-                            <SpotCard spot={spot} />
-                        </div>
+                            <div className="spot-Options">
 
-                        <div className="spot-Options">
+                                <Link className="Temp-Buttons" to={`/spots/${spot.id}/edit`}>
+                                    <button id="update-spot-button">Update</button>
+                                </Link>
 
-                            <Link className="Temp-Buttons" to={`/spots/${spot.id}/edit`}>
-                                <button id="update-spot-button">Update</button>
-                            </Link>
+                                <div className="Temp-Buttons">
+                                    <OpenModalReview
+                                        itemText="Delete"
+                                        modalComponent={<SpotDeleteModal spotId={spot.id} />}
+                                    />
+                                </div>
 
-                            <div className="Temp-Buttons">
-                                <OpenModalReview
-                                    itemText="Delete"
-                                    modalComponent={<SpotDeleteModal spotId={spot.id} />}
-                                />
                             </div>
 
                         </div>
-
-                    </div>
-                )
-            })}
-
+                    )
+                })}
+            </div>
         </div>
     )
 }
