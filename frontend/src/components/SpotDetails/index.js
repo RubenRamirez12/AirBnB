@@ -153,6 +153,7 @@ export default function SpotDetails() {
             itemText="Post Your Review"
             modalComponent={<ReviewFormModal spotId={spotId} />}
           />}
+        {currentUser && currentUser.id !== spot.Owner.id && !numReviews && <h3>Be the first to post a review!</h3>}
         <ul className="reviewList">
           {reviews && reviews.map((loopReview, index) => {
             let review = reviews[reviews.length - (1 + index)]
