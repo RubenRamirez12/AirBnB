@@ -104,7 +104,7 @@ export default function SpotDetails() {
       <div className="descriptionDetails">
 
         <div className="actualDescription">
-          <h1>Hosted by {spot.Owner.firstName}</h1>
+          <h1>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h1>
 
           <p>{spot.description}</p>
 
@@ -147,7 +147,7 @@ export default function SpotDetails() {
             let reviewDate = new Date(review.createdAt).toLocaleString('en-US', { month: 'long', year: "numeric" })
             return (
               <li key={review.id} className="reviewListItem">
-                <div id="reviewName">{review.User.firstName} {review.User.lastName}</div>
+                <div id="reviewName">{review.User.firstName}</div>
                 <div id="reviewDate">{reviewDate}</div>
                 <div id="reviewParagraph">{review.review}</div>
                 {currentUser && review.userId === currentUser.id &&
