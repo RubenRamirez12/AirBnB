@@ -31,7 +31,7 @@ export default function SpotDetails() {
       dispatch(fetchReviews(spotId))
     }
     setLoaded2(true)
-  }, [dispatch, loaded, spotId])
+  }, [dispatch, loaded, spotId, spot])
 
   useEffect(() => {
     if (spot && loaded && loaded2) {
