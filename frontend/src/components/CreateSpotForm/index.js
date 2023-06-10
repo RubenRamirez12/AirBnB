@@ -80,6 +80,10 @@ export default function CreateSpotForm() {
       errorObj.description = 'Description needs a minimum of 30 characters'
     }
 
+    if (description.length > 255) {
+      errorObj.description = "Description needs to be shorter than 255 characters"
+    }
+
     if (!title) {
       errorObj.name = 'Name is required'
     }
@@ -264,10 +268,10 @@ export default function CreateSpotForm() {
 
               <input
                 type="url"
-                onChange={(e) => setPhoto1(e.target.value)}
                 required
-                placeholder="Preview Image URL"
+                onChange={(e) => setPhoto1(e.target.value)}
                 onPaste={(e) => setPhoto1(e.clipboardData.getData('text/plain'))}
+                placeholder="Preview Image URL"
               />
               {checkedVal && errors.photo1 && <p className="spot-creation-errors">{errors.photo1}</p>}
             </div>
@@ -276,8 +280,8 @@ export default function CreateSpotForm() {
               <input
                 type="url"
                 onChange={(e) => setPhoto2(e.target.value)}
-                placeholder="Image URL"
                 onPaste={(e) => setPhoto2(e.clipboardData.getData('text/plain'))}
+                placeholder="Image URL"
               />
               {checkedVal && errors.photo2 && <p className="spot-creation-errors">{errors.photo2}</p>}
             </div>
@@ -286,8 +290,8 @@ export default function CreateSpotForm() {
               <input
                 type="url"
                 onChange={(e) => setPhoto3(e.target.value)}
-                placeholder="Image URL"
                 onPaste={(e) => setPhoto3(e.clipboardData.getData('text/plain'))}
+                placeholder="Image URL"
               />
               {checkedVal && errors.photo3 && <p className="spot-creation-errors">{errors.photo3}</p>}
             </div>

@@ -50,33 +50,44 @@ export default function SpotUpdateForm() {
 			setTitle(spot.name)
 			setPrice(spot.price)
 
-			let spotImages = spot.SpotImages;
+
 			let allIds = [];
 
-			for (let i = 0; i < spotImages.length; i++) {
-				let currentImage = spotImages[i]
+			let previewImage = spot.SpotImages.find(image => image.preview === true)
+
+			setPhoto1(previewImage.url)
+			allIds.push(previewImage.id)
+
+			let normalImages = []
+
+			spot.SpotImages.forEach(image => {
+				if (image.preview === false) {
+					normalImages.push(image)
+				}
+			})
+
+			for (let i = 0; i < normalImages.length; i++) {
+				let currentImage = normalImages[i]
 
 				if (i === 0) {
-					setPhoto1(currentImage.url)
-				}
-
-				if (i === 1) {
 					setPhoto2(currentImage.url)
 				}
 
-				if (i === 2) {
+				if (i === 1) {
 					setPhoto3(currentImage.url)
 				}
 
-				if (i === 3) {
+				if (i === 2) {
 					setPhoto4(currentImage.url)
 				}
 
-				if (i === 4) {
+				if (i === 3) {
 					setPhoto5(currentImage.url)
 				}
+
 				allIds.push(currentImage.id)
 			}
+
 			setPhotoIds(allIds)
 		}
 
@@ -104,6 +115,10 @@ export default function SpotUpdateForm() {
 
 		if (description.length < 30) {
 			errorObj.description = 'Description needs a minimum of 30 characters'
+		}
+
+		if (description.length > 255) {
+			errorObj.description = "Description needs to be shorter than 255 characters"
 		}
 
 		if (!title) {
@@ -176,7 +191,7 @@ export default function SpotUpdateForm() {
 
 	}
 
-	if (!spot) {
+	if (!spot || !photo1) {
 		return (
 			<h1>fixing</h1>
 		)
