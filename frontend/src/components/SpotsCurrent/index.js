@@ -27,7 +27,7 @@ export default function SpotsCurrent() {
             <h1>Please log in to a account</h1>
         )
     }
-    console.log(currentUserSpots)
+
     return (
         <div className="whole-userSpots">
             <div className="management-Div-settings">
