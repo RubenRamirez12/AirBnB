@@ -55,7 +55,7 @@ export default function SpotDetails() {
       }
     }
 
-  }, [dispatch, loaded, loaded2, spotId, spot])
+  }, [dispatch, loaded, loaded2, spotId, spot, reviews])
 
   if (!loaded || !loaded2 || !spot || !spot.SpotImages) {
     return <div>
