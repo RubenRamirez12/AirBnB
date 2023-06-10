@@ -14,9 +14,8 @@ export default function SpotDetails() {
   const currentUser = useSelector(state => state.session.user)
   const spot = useSelector(state => state.spots.singleSpot[spotId])
   const reviews = useSelector(state => state.reviews.spots[spotId])
-  const [spotImages, setSpotImages] = useState(null)
   const [numReviews, setNumReviews] = useState(0)
-  const [avgStarRating, setAvgStarRating] = useState(0)
+  const [avgStarRating, setAvgStarRating] = useState(null)
 
   const [loaded, setLoaded] = useState(false)
   const [loaded2, setLoaded2] = useState(false)
@@ -57,7 +56,7 @@ export default function SpotDetails() {
 
   }, [dispatch, loaded, loaded2, spotId, spot, reviews])
 
-  if (!loaded || !loaded2 || !spot || !spot.SpotImages) {
+  if (!loaded || !loaded2 || !spot || !spot.SpotImages || !avgStarRating) {
     return <div>
       LOADING!!!
     </div>
