@@ -14,7 +14,7 @@ export default function SpotDetails() {
   const currentUser = useSelector(state => state.session.user)
   const spot = useSelector(state => state.spots.singleSpot[spotId])
   const reviews = useSelector(state => state.reviews.spots[spotId])
-  const [numReviews, setNumReviews] = useState(0)
+  const [numReviews, setNumReviews] = useState(null)
   const [avgStarRating, setAvgStarRating] = useState(null)
 
   const [loaded, setLoaded] = useState(false)
@@ -37,7 +37,11 @@ export default function SpotDetails() {
     if (spot && loaded && loaded2) {
 
       if (reviews) {
-        setNumReviews(reviews.length)
+        if (reviews.length > 0) {
+          setNumReviews(reviews.length)
+        } else {
+          setNumReviews(null)
+        }
       }
 
       if (reviews && reviews.length > 0) {
@@ -55,6 +59,17 @@ export default function SpotDetails() {
     }
 
   }, [dispatch, loaded, loaded2, spotId, spot, reviews])
+
+  useEffect(() => {
+    if (reviews) {
+      if (reviews.length > 0) {
+        setNumReviews(reviews.length)
+      } else {
+        setNumReviews(null)
+      }
+    }
+  }, [reviews])
+
 
   if (!loaded || !loaded2 || !spot || !spot.SpotImages || !avgStarRating) {
     return <div>
@@ -116,8 +131,7 @@ export default function SpotDetails() {
               <i className="fa fa-star">
                 {avgStarRating}
               </i>
-              ·
-              <div id="num-reviews">{numReviews} {numReviews === 1 ? 'review' : 'reviews'}</div>
+              {numReviews && <div id="num-reviews">· {numReviews} {numReviews === 1 ? 'review' : 'reviews'}</div>}
             </div>
           </div>
 
@@ -131,7 +145,8 @@ export default function SpotDetails() {
 
       <div className="reviewDetails">
         <h1>
-          <i className="fa fa-star">{avgStarRating} · {numReviews} {numReviews === 1 ? 'review' : 'reviews'}</i>
+          {!numReviews && <i className="fa fa-star">{avgStarRating}</i>}
+          {numReviews && <i className="fa fa-star">{avgStarRating} · {numReviews} {numReviews === 1 ? 'review' : 'reviews'}</i>}
         </h1>
         {currentUser && currentUser.id !== spot.Owner.id && !(reviews && reviews.find(review => review.userId === currentUser.id)) &&
           <OpenModalReview
