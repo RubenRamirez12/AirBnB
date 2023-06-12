@@ -126,7 +126,7 @@ export default function SpotDetails() {
 
         <div className="reserveDiv">
           <div className="topReserve">
-            <h1>${spot.price}<span id="NIGHT"> night</span></h1>
+            <h1 id="price-reserve">${spot.price}<span id="NIGHT"> night</span></h1>
             <div className="rating-review">
               <i className="fa fa-star">
                 {avgStarRating}
