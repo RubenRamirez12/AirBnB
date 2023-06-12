@@ -120,7 +120,7 @@ export default function SpotDetails() {
         <div className="actualDescription">
           <h1>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h1>
 
-          <p>{spot.description}</p>
+          <p id="THESPOTDESCRIPTION">{spot.description}</p>
 
         </div>
 
@@ -130,8 +130,8 @@ export default function SpotDetails() {
             <div className="rating-review">
               <i className="fa fa-star">
                 {avgStarRating}
-              </i>
-              {numReviews && <div id="num-reviews">· {numReviews} {numReviews === 1 ? 'review' : 'reviews'}</div>}
+              </i>{" "}
+              {numReviews && <div id="num-reviews"> · {numReviews} {numReviews === 1 ? 'review' : 'reviews'}</div>}
             </div>
           </div>
 
